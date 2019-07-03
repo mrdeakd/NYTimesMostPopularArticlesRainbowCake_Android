@@ -1,9 +1,9 @@
-package com.ddworks.nytimesmostpopular.disk
+package com.ddworks.nytimesmostpopular.data.disk
 
 import com.ddworks.nytimesmostpopular.domain.DomainNews
 import javax.inject.Inject
 
-class NYDiskDataSource @Inject constructor() {
+class DiskDataSource @Inject constructor() {
     fun saveNews(networkNewsList : List<DomainNews>){}
     fun getNews(): List<DomainNews> {
         return emptyList()

@@ -1,15 +1,15 @@
 package com.ddworks.nytimesmostpopular.domain
 
-import com.ddworks.nytimesmostpopular.disk.NYDiskDataSource
+import com.ddworks.nytimesmostpopular.data.disk.DiskDataSource
 import com.ddworks.nytimesmostpopular.data.network.NetworkDataSource
 import javax.inject.Inject
 
 class NewsInteractor @Inject constructor(
     private val nyNetworkDataSource: NetworkDataSource,
-    private val nyDiskDataSource: NYDiskDataSource
+    private val nyDiskDataSource: DiskDataSource
 ) {
     suspend fun getUser(): List<DomainNews> {
-        val networkNewsList: List<DomainNews>? = nyNetworkDataSource.getData()
+        val networkNewsList: List<DomainNews>? = nyNetworkDataSource.getNews()
         if (networkNewsList != null) {
             nyDiskDataSource.saveNews(networkNewsList)
             return networkNewsList
