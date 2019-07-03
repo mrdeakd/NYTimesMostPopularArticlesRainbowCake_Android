@@ -8,7 +8,7 @@ class MainPresenter @Inject constructor(
     private val newsInteractor: NewsInteractor
 ) {
     suspend fun getUser(): List<News> = withIOContext {
-        newsInteractor.getUser().map {
+        newsInteractor.getNews().map {
             News(
                 name = it.title,
                 profileImage = it.picture

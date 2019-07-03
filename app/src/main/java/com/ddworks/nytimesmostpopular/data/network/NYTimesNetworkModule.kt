@@ -1,9 +1,11 @@
 package com.ddworks.nytimesmostpopular.data.network
 
+import android.content.Context
+import com.ddworks.nytimesmostpopular.data.network.interceptor.ConnectivityInterceptor
+import com.ddworks.nytimesmostpopular.data.network.interceptor.KeyInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,16 +17,10 @@ class NYTimesNetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
-        val keyInterceptor = Interceptor{
-            var request = it.request()
-            val url = request.url().newBuilder().addQueryParameter("api-key", API_KEY).build()
-            request = request.newBuilder().url(url).build()
-            return@Interceptor it.proceed(request)
-        }
-
+    fun provideRetrofit(context: Context): Retrofit {
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(keyInterceptor)
+            .addInterceptor(ConnectivityInterceptor(context))
+            .addInterceptor(KeyInterceptor())
             .connectTimeout(5, TimeUnit.SECONDS)
             .readTimeout(5, TimeUnit.SECONDS)
             .build()
