@@ -1,7 +1,9 @@
 package com.ddworks.nytimesmostpopular.domain
 
 import com.ddworks.nytimesmostpopular.data.disk.DiskDataSource
+import com.ddworks.nytimesmostpopular.data.network.interceptor.ConnectivityInterceptor
 import com.ddworks.nytimesmostpopular.data.network.NetworkDataSource
+import timber.log.Timber
 import javax.inject.Inject
 
 class NewsInteractor @Inject constructor(
@@ -9,12 +11,16 @@ class NewsInteractor @Inject constructor(
     private val nyDiskDataSource: DiskDataSource
 ) {
     suspend fun getNews(): List<DomainNews> {
-        //TODO need to fix error handling if there's no internet connection ( this loads data from db now to test it )
-        val networkNewsList: List<DomainNews>? = null/*nyNetworkDataSource.getNews()*/
-        if (networkNewsList != null) {
-            nyDiskDataSource.saveNews(networkNewsList)
-            return networkNewsList
+        try {
+            val networkNewsList: List<DomainNews>? = nyNetworkDataSource.getNews()
+            if (networkNewsList != null) {
+                nyDiskDataSource.saveNews(networkNewsList)
+            }
+        } catch (e: ConnectivityInterceptor.NoConnectivityException){
+            Timber.d("Nincs internet elérés")
         }
-        return nyDiskDataSource.getNews()
+        finally {
+            return nyDiskDataSource.getNews()
+        }
     }
 }
