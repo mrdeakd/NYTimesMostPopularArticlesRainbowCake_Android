@@ -5,10 +5,14 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val mainPresenter: MainPresenter
-) : JobViewModel<MainViewState>(MainViewState()) {
-
+) : JobViewModel<MainViewState>(Loading) {
     fun load() = execute {
-        viewState = MainViewState(mainPresenter.getUser())
-    }
+        if (!mainPresenter.isConnected()) {
+            viewState = NoConnection
+        } else {
+            viewState = Loading
+            viewState = NewsLoaded(mainPresenter.getUser())
+        }
 
+    }
 }

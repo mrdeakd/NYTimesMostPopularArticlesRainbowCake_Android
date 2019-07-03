@@ -1,3 +1,11 @@
 package com.ddworks.nytimesmostpopular.ui.main
 
-data class MainViewState(val data: List<MainPresenter.News> = emptyList())
+import com.ddworks.nytimesmostpopular.domain.DomainNews
+
+sealed class MainViewState
+
+object NoConnection : MainViewState()
+
+object Loading : MainViewState()
+
+data class NewsLoaded(val data: List<DomainNews> = emptyList()) : MainViewState()

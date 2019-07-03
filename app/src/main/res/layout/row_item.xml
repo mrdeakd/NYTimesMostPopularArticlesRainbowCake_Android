@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_border"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/iv_imageofarticle"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
+    <TextView
+            android:layout_width="230dp"
+            android:layout_height="35dp"
+            android:id="@+id/tv_title" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toEndOf="@+id/iv_imageofarticle"
+            android:layout_marginStart="8dp"/>
+    <TextView
+            android:layout_width="230dp"
+            android:layout_height="35dp"
+            android:id="@+id/tv_by" app:layout_constraintStart_toEndOf="@+id/iv_imageofarticle"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_date"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_calendarimage" android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_by" android:layout_marginTop="8dp"/>
+    <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp" app:srcCompat="@drawable/icon_calendar"
+            android:id="@+id/iv_calendarimage"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_date"
+            app:layout_constraintStart_toEndOf="@+id/iv_imageofarticle"
+            android:layout_marginStart="8dp"
+            app:layout_constraintVertical_bias="0.529" app:layout_constraintTop_toTopOf="@+id/tv_date"/>
+    <ImageView
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:id="@+id/iv_opendetailactivity"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:srcCompat="@drawable/icon_right1"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

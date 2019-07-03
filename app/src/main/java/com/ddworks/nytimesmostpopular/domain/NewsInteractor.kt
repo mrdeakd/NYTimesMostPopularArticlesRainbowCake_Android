@@ -11,16 +11,10 @@ class NewsInteractor @Inject constructor(
     private val nyDiskDataSource: DiskDataSource
 ) {
     suspend fun getNews(): List<DomainNews> {
-        try {
-            val networkNewsList: List<DomainNews>? = nyNetworkDataSource.getNews()
-            if (networkNewsList != null) {
-                nyDiskDataSource.saveNews(networkNewsList)
-            }
-        } catch (e: ConnectivityInterceptor.NoConnectivityException){
-            Timber.d("Nincs internet elérés")
+        val networkNewsList: List<DomainNews> = nyNetworkDataSource.getNews()
+        if (networkNewsList.isNotEmpty()) {
+            nyDiskDataSource.saveNews(networkNewsList)
         }
-        finally {
-            return nyDiskDataSource.getNews()
-        }
+        return nyDiskDataSource.getNews()
     }
 }

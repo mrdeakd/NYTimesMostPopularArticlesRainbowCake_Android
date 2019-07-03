@@ -13,7 +13,7 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun provideRoom(context: Context): NewsRoomDatabase{
+    fun provideRoom(context: Context): NewsRoomDatabase {
         return Room.databaseBuilder(context.applicationContext, NewsRoomDatabase::class.java, "news_db")
             .fallbackToDestructiveMigration()
             .build()
@@ -21,7 +21,7 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun provideDatabaseDao(newsRoomDatabase: NewsRoomDatabase): DatabaseDao{
+    fun provideDatabaseDao(newsRoomDatabase: NewsRoomDatabase): DatabaseDao {
         return newsRoomDatabase.newsDataDao()
     }
 

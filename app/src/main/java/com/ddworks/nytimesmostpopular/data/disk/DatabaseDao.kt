@@ -11,7 +11,7 @@ interface DatabaseDao {
     fun deleteAllNews()
 
     @Query("SELECT * FROM newsClass")
-    fun getAllNews() : List<DomainNews>
+    fun getAllNews(): List<DomainNews>
 
     @Insert
     fun insertNews(art: List<out DomainNews>)
