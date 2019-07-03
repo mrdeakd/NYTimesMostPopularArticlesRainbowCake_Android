@@ -8,13 +8,13 @@ class NewsInteractor @Inject constructor(
     private val nyNetworkDataSource: NetworkDataSource,
     private val nyDiskDataSource: DiskDataSource
 ) {
-    suspend fun getUser(): List<DomainNews> {
-        val networkNewsList: List<DomainNews>? = nyNetworkDataSource.getNews()
+    suspend fun getNews(): List<DomainNews> {
+        //TODO need to fix error handling if there's no internet connection ( this loads data from db now to test it )
+        val networkNewsList: List<DomainNews>? = null/*nyNetworkDataSource.getNews()*/
         if (networkNewsList != null) {
             nyDiskDataSource.saveNews(networkNewsList)
             return networkNewsList
         }
-
         return nyDiskDataSource.getNews()
     }
 }
