@@ -58,10 +58,6 @@ dependencies {
     //CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
-    //Groupie
-    implementation 'com.xwray:groupie:2.3.0'
-    implementation 'com.xwray:groupie-kotlin-android-extensions:2.3.0'
-
     //Room
     implementation "android.arch.persistence.room:runtime:2.1.0"
     kapt "android.arch.persistence.room:compiler:2.1.0"

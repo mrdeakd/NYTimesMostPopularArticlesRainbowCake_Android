@@ -20,7 +20,8 @@ class ConnectivityInterceptor(context: Context): Interceptor {
     class NoConnectivityException : IOException()
 
     private fun isOnline(): Boolean {
-        val connectivityManager = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
     }

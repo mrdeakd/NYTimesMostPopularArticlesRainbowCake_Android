@@ -1,9 +1,7 @@
 package com.ddworks.nytimesmostpopular.data.disk
 
 import android.content.Context
-import androidx.room.Database
 import androidx.room.Room
-import com.ddworks.nytimesmostpopular.domain.DomainNews
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,7 +11,7 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun provideRoom(context: Context): NewsRoomDatabase{
+    fun provideRoom(context: Context): NewsRoomDatabase {
         return Room.databaseBuilder(context.applicationContext, NewsRoomDatabase::class.java, "news_db")
             .fallbackToDestructiveMigration()
             .build()
@@ -21,7 +19,7 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun provideDatabaseDao(newsRoomDatabase: NewsRoomDatabase): DatabaseDao{
+    fun provideDatabaseDao(newsRoomDatabase: NewsRoomDatabase): DatabaseDao {
         return newsRoomDatabase.newsDataDao()
     }
 
