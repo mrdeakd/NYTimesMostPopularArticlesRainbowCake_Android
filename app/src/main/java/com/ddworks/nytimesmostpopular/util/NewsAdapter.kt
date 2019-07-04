@@ -3,6 +3,8 @@ package com.ddworks.nytimesmostpopular.util
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +13,9 @@ import com.ddworks.nytimesmostpopular.domain.DomainNews
 import com.ddworks.nytimesmostpopular.util.NewsAdapter.NewsViewHolder
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_item.view.*
+import kotlinx.android.synthetic.main.row_item.view.tv_by
+import kotlinx.android.synthetic.main.row_item.view.tv_date
+import kotlinx.android.synthetic.main.row_item.view.tv_title
 
 class NewsAdapter : ListAdapter<DomainNews, NewsViewHolder>(NewsComparator) {
 
@@ -24,21 +29,21 @@ class NewsAdapter : ListAdapter<DomainNews, NewsViewHolder>(NewsComparator) {
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val newsItem = getItem(position)
 
-        holder.tv_by.text = newsItem.byline
-        holder.tv_date.text = newsItem.published_date
-        holder.tv_title.text = newsItem.title
-        Picasso.get().load(newsItem.picture).into(holder.smallpic.iv_imageofarticle)
-        holder.iv_opendetailactivity.setOnClickListener{
-
+        holder.tvBy.text = newsItem.byline
+        holder.tvDate.text = newsItem.published_date
+        holder.tvTitle.text = newsItem.title
+        Picasso.get().load(newsItem.picture).into(holder.ivImageOfNews)
+        holder.ivOpenDetailActivity.setOnClickListener{
+            //TODO navtigation to detail activity with the specified data
         }
     }
 
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tv_by = itemView.tv_by
-        var tv_date = itemView.tv_date
-        var tv_title = itemView.tv_title
-        var smallpic = itemView.iv_imageofarticle
-        var iv_opendetailactivity = itemView.iv_opendetailactivity
+        var tvBy: TextView = itemView.tv_by
+        var tvDate: TextView = itemView.tv_date
+        var tvTitle: TextView = itemView.tv_title
+        var ivImageOfNews: ImageView = itemView.iv_imageofnews
+        var ivOpenDetailActivity: ImageView = itemView.iv_opendetailactivity
     }
 
     object NewsComparator : DiffUtil.ItemCallback<DomainNews>() {

@@ -11,8 +11,7 @@ class MainViewModel @Inject constructor(
             viewState = NoConnection
         } else {
             viewState = Loading
-            viewState = NewsLoaded(mainPresenter.getUser())
         }
-
+        viewState = NewsLoaded(mainPresenter.getUser())
     }
 }

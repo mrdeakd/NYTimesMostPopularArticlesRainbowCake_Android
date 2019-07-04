@@ -1,9 +1,7 @@
 package com.ddworks.nytimesmostpopular.data.disk
 
 import android.content.Context
-import androidx.room.Database
 import androidx.room.Room
-import com.ddworks.nytimesmostpopular.domain.DomainNews
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

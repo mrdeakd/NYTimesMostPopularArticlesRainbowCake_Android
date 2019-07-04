@@ -10,7 +10,10 @@ class MainPresenter @Inject constructor(
     private val newsInteractor: NewsInteractor
 ) {
     suspend fun getUser(): List<DomainNews> = withIOContext {
-        newsInteractor.getNews()
+        if(isConnected()){
+            newsInteractor.refreshDatabase()
+        }
+        newsInteractor.getNewNews()
     }
 
     fun isConnected(): Boolean {
