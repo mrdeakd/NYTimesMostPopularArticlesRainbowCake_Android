@@ -1,3 +1,11 @@
 package com.ddworks.nytimesmostpopular.ui.details
 
-data class DetailsViewState(val data: String = "")
+import com.ddworks.nytimesmostpopular.domain.DomainNews
+
+sealed class DetailsViewState
+
+object NoConnection : DetailsViewState()
+
+object Loading : DetailsViewState()
+
+data class NewsLoaded(val data: DomainNews) : DetailsViewState()

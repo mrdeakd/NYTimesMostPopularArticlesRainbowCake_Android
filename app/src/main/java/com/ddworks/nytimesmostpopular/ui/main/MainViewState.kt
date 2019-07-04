@@ -8,4 +8,8 @@ object NoConnection : MainViewState()
 
 object Loading : MainViewState()
 
-data class NewsLoaded(val data: List<DomainNews> = emptyList()) : MainViewState()
+object Loaded : MainViewState()
+
+data class NewsLoaded(val dataList: List<DomainNews> = emptyList()) : MainViewState()
+
+data class NewsDetailedLoaded(val newsId : Int) : MainViewState()

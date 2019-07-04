@@ -13,6 +13,9 @@ interface DatabaseDao {
     @Query("SELECT * FROM newsClass")
     fun getAllNews(): List<DomainNews>
 
+    @Query("SELECT * FROM newsClass WHERE id=:id")
+    fun getNewsById(id: Int): DomainNews
+
     @Insert
     fun insertNews(art: List<out DomainNews>)
 }

@@ -17,7 +17,9 @@ import kotlinx.android.synthetic.main.row_item.view.tv_by
 import kotlinx.android.synthetic.main.row_item.view.tv_date
 import kotlinx.android.synthetic.main.row_item.view.tv_title
 
-class NewsAdapter : ListAdapter<DomainNews, NewsViewHolder>(NewsComparator) {
+class NewsAdapter(
+    private val listener: NewsItemListener
+) : ListAdapter<DomainNews, NewsViewHolder>(NewsComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater
@@ -34,7 +36,7 @@ class NewsAdapter : ListAdapter<DomainNews, NewsViewHolder>(NewsComparator) {
         holder.tvTitle.text = newsItem.title
         Picasso.get().load(newsItem.picture).into(holder.ivImageOfNews)
         holder.ivOpenDetailActivity.setOnClickListener{
-            //TODO navtigation to detail activity with the specified data
+            listener.onItemClick(newsItem.id)
         }
     }
 
@@ -54,5 +56,9 @@ class NewsAdapter : ListAdapter<DomainNews, NewsViewHolder>(NewsComparator) {
         override fun areContentsTheSame(oldItem: DomainNews, newItem: DomainNews): Boolean {
             return oldItem == newItem
         }
+    }
+
+    interface NewsItemListener{
+        fun onItemClick(newsId: Int)
     }
 }

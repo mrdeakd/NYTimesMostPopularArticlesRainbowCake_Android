@@ -14,4 +14,8 @@ class DiskDataSource @Inject constructor(
     suspend fun getNews(): List<DomainNews> {
         return databaseDao.getAllNews()
     }
+
+    suspend fun getNewsById(id : String): DomainNews {
+        return databaseDao.getNewsById(id.toInt())
+    }
 }

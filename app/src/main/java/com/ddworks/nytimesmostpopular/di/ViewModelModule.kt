@@ -2,6 +2,7 @@ package com.ddworks.nytimesmostpopular.di
 
 import androidx.lifecycle.ViewModel
 import co.zsmb.rainbowcake.dagger.ViewModelKey
+import com.ddworks.nytimesmostpopular.ui.details.DetailsViewModel
 import com.ddworks.nytimesmostpopular.ui.main.MainViewModel
 import dagger.Binds
 import dagger.Module
@@ -14,4 +15,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailsViewModel::class)
+    abstract fun bindDetailsViewModel(mainViewModel: DetailsViewModel): ViewModel
 }
