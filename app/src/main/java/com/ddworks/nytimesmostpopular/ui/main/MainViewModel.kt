@@ -7,9 +7,12 @@ class MainViewModel(
     private val mainPresenter: MainPresenter
 ) : JobViewModel<MainViewState>(Loading) {
     fun loadAll() = execute {
-
+        val previousState = viewState
         viewState = Loading
-        viewState = NewsLoaded(mainPresenter.getUser(),"")
+        viewState = when(previousState){
+            is NewsSearching -> NewsSearching(mainPresenter.getUser(),previousState.searchString)
+            else -> NewsLoaded(mainPresenter.getUser())
+        }
     }
 
     fun checkInternetConnection(): Boolean{
@@ -29,7 +32,11 @@ class MainViewModel(
     }
 
     fun changeSearchString(searchString: String){
-        if(viewState is NewsLoaded)
-            viewState = (viewState as NewsLoaded).copy(searchString = searchString)
+        when(viewState){
+            is NewsSearching -> viewState = (viewState as NewsSearching).copy(
+                searchString = searchString
+            )
+            is NewsLoaded -> viewState = NewsSearching((viewState as NewsLoaded).dataList, searchString)
+        }
     }
 }

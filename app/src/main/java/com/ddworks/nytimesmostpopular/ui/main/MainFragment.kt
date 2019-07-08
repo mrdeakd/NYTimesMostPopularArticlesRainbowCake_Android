@@ -76,16 +76,20 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
             }
             is NewsLoaded -> {
                 rv_items.visibility = View.VISIBLE
-                val list = mutableListOf<DomainNews>()
-                for(item in viewState.dataList){
-                    if(item.title.toLowerCase().contains(viewState.searchString.toLowerCase()))
-                        list.add(item)
-                }
-                adapter.submitList(list)
+                adapter.submitList(viewState.dataList)
             }
             is NewsDetailedLoaded -> {
                 navigator?.add(DetailsFragment.newInstance(viewState.newsId.toString()))
                 viewModel.setStateToLoaded()
+            }
+            is NewsSearching ->{
+                rv_items.visibility = View.VISIBLE
+                val listOfFilteredNews = mutableListOf<DomainNews>()
+                for(item in viewState.dataList){
+                    if(item.title.toLowerCase().contains(viewState.searchString.toLowerCase()))
+                        listOfFilteredNews.add(item)
+                }
+                adapter.submitList(listOfFilteredNews)
             }
         }
     }
