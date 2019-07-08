@@ -32,7 +32,7 @@ class InteractorUnitTest {
     }
 
     @Test
-    fun `get news from the network and save them`() = runBlocking {
+    fun `refreshDatabase fetches data from network and saves it to disk`() = runBlocking {
         every { runBlocking { networkDS.getNews() } } returns listOfNews
         every { diskDS.saveNews(listOfNews) } returns Unit
 
