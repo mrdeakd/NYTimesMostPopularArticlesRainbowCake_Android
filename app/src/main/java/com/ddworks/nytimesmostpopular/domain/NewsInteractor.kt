@@ -2,9 +2,9 @@ package com.ddworks.nytimesmostpopular.domain
 
 import com.ddworks.nytimesmostpopular.data.disk.DiskDataSource
 import com.ddworks.nytimesmostpopular.data.network.NetworkDataSource
-import javax.inject.Inject
 
-class NewsInteractor @Inject constructor(
+
+class NewsInteractor(
     private val nyNetworkDataSource: NetworkDataSource,
     private val nyDiskDataSource: DiskDataSource
 ) {

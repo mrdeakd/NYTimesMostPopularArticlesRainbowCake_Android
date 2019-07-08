@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
-import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.extensions.applyArgs
+import co.zsmb.rainbowcake.koin.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.extensions.requireArguments
 import co.zsmb.rainbowcake.navigation.extensions.requireString
 import com.ddworks.nytimesmostpopular.R

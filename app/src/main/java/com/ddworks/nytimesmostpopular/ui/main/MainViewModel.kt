@@ -2,9 +2,8 @@ package com.ddworks.nytimesmostpopular.ui.main
 
 import co.zsmb.rainbowcake.base.JobViewModel
 import com.ddworks.nytimesmostpopular.util.Functions
-import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class MainViewModel(
     private val mainPresenter: MainPresenter
 ) : JobViewModel<MainViewState>(Loading) {
     fun loadAll() = execute {

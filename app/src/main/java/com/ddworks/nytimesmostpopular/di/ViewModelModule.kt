@@ -1,23 +1,14 @@
 package com.ddworks.nytimesmostpopular.di
 
-import androidx.lifecycle.ViewModel
-import co.zsmb.rainbowcake.dagger.ViewModelKey
+import com.ddworks.nytimesmostpopular.ui.details.DetailsPresenter
 import com.ddworks.nytimesmostpopular.ui.details.DetailsViewModel
+import com.ddworks.nytimesmostpopular.ui.main.MainPresenter
 import com.ddworks.nytimesmostpopular.ui.main.MainViewModel
-import dagger.Binds
-import dagger.Module
-import dagger.multibindings.IntoMap
+import org.koin.dsl.module
 
-@Suppress("unused")
-@Module
-abstract class ViewModelModule {
-    @Binds
-    @IntoMap
-    @ViewModelKey(MainViewModel::class)
-    abstract fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(DetailsViewModel::class)
-    abstract fun bindDetailsViewModel(mainViewModel: DetailsViewModel): ViewModel
+val UIModule = module {
+    factory { MainPresenter(get()) }
+    factory { DetailsPresenter(get()) }
+    factory { MainViewModel(get()) }
+    factory { DetailsViewModel(get()) }
 }

@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
-import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
+import co.zsmb.rainbowcake.koin.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.navigator
 import com.ddworks.nytimesmostpopular.R
 import com.ddworks.nytimesmostpopular.ui.details.DetailsFragment
