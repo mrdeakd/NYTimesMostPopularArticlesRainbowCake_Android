@@ -43,7 +43,6 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
         val searchItem =  menu.findItem(R.id.action_search)
-        searchItem.expandActionView()
         val searchView = searchItem.actionView as SearchView
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

@@ -7,6 +7,7 @@ class MainViewModel(
     private val mainPresenter: MainPresenter
 ) : JobViewModel<MainViewState>(Loading) {
     fun loadAll() = execute {
+
         viewState = Loading
         viewState = NewsLoaded(mainPresenter.getUser(),"")
     }
@@ -28,6 +29,7 @@ class MainViewModel(
     }
 
     fun changeSearchString(searchString: String){
-        viewState = (viewState as NewsLoaded).copy(searchString = searchString)
+        if(viewState is NewsLoaded)
+            viewState = (viewState as NewsLoaded).copy(searchString = searchString)
     }
 }
