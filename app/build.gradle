@@ -72,4 +72,8 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$daggerVer"
     kapt "com.google.dagger:dagger-android-processor:$daggerVer"
     kapt "com.google.dagger:dagger-compiler:$daggerVer"
+
+    //MockK
+    testImplementation "io.mockk:mockk:1.9.3.kotlin12"
+    androidTestImplementation "io.mockk:mockk-android:1.9.3.kotlin12"
 }
