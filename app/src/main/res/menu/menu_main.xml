@@ -8,9 +8,4 @@
           android:icon="@drawable/ic_search_white_24dp"
           app:showAsAction="collapseActionView|always"
           app:actionViewClass="androidx.appcompat.widget.SearchView"/>
-
-    <item
-            android:id="@+id/action_settings"
-            android:title="@string/action_settings"
-            app:showAsAction="never" />
 </menu>
