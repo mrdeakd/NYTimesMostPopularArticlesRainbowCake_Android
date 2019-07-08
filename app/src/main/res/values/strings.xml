@@ -2,4 +2,5 @@
     <string name="app_name">NYTimesMostPopular</string>
     <string name="NoConnection">Nincs internet elérés</string>
     <string name="cromepackage">com.android.chrome</string>
+    <string name="action_settings">Action Settings</string>
 </resources>

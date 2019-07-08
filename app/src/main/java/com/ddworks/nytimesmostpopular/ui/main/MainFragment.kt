@@ -1,14 +1,18 @@
 package com.ddworks.nytimesmostpopular.ui.main
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.koin.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.navigator
 import com.ddworks.nytimesmostpopular.R
+import com.ddworks.nytimesmostpopular.domain.DomainNews
 import com.ddworks.nytimesmostpopular.ui.details.DetailsFragment
 import com.ddworks.nytimesmostpopular.util.NewsAdapter
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -26,6 +30,7 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         swipe_layout.setOnRefreshListener {
             viewModel.checkInternetConnection()
             viewModel.loadAll()
@@ -33,6 +38,25 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
         }
         rv_items.adapter = adapter
         rv_items.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        val searchItem =  menu.findItem(R.id.action_search)
+        searchItem.expandActionView()
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                viewModel.changeSearchString(newText)
+                return true
+            }
+
+        })
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onStart() {
@@ -53,7 +77,12 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
             }
             is NewsLoaded -> {
                 rv_items.visibility = View.VISIBLE
-                adapter.submitList(viewState.dataList)
+                val list = mutableListOf<DomainNews>()
+                for(item in viewState.dataList){
+                    if(item.title.toLowerCase().contains(viewState.searchString.toLowerCase()))
+                        list.add(item)
+                }
+                adapter.submitList(list)
             }
             is NewsDetailedLoaded -> {
                 navigator?.add(DetailsFragment.newInstance(viewState.newsId.toString()))

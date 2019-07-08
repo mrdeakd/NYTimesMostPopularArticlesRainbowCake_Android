@@ -8,7 +8,7 @@ class MainViewModel(
 ) : JobViewModel<MainViewState>(Loading) {
     fun loadAll() = execute {
         viewState = Loading
-        viewState = NewsLoaded(mainPresenter.getUser())
+        viewState = NewsLoaded(mainPresenter.getUser(),"")
     }
 
     fun checkInternetConnection(): Boolean{
@@ -25,5 +25,9 @@ class MainViewModel(
 
     fun setStateToLoaded() {
         viewState = Loaded
+    }
+
+    fun changeSearchString(searchString: String){
+        viewState = (viewState as NewsLoaded).copy(searchString = searchString)
     }
 }
