@@ -15,7 +15,7 @@ class NewsInteractor @Inject constructor(
         }
     }
 
-    suspend fun getNewNews(): List<DomainNews> = nyDiskDataSource.getNews()
+    fun getNewNews(): List<DomainNews> = nyDiskDataSource.getNews()
 
-    suspend fun getNewNewsById(newsId : String): DomainNews = nyDiskDataSource.getNewsById(newsId)
+    fun getNewNewsById(newsId : String): DomainNews = nyDiskDataSource.getNewsById(newsId)
 }
