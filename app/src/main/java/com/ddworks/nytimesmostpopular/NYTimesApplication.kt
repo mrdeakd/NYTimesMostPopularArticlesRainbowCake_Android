@@ -1,26 +1,28 @@
 package com.ddworks.nytimesmostpopular
 
+import android.app.Application
 import co.zsmb.rainbowcake.config.Loggers
 import co.zsmb.rainbowcake.config.rainbowCake
-import co.zsmb.rainbowcake.dagger.RainbowCakeApplication
 import co.zsmb.rainbowcake.timber.TIMBER
-import com.ddworks.nytimesmostpopular.di.AppComponent
-import com.ddworks.nytimesmostpopular.di.ApplicationModule
-import com.ddworks.nytimesmostpopular.di.DaggerAppComponent
+import com.ddworks.nytimesmostpopular.data.disk.DatabaseModule
+import com.ddworks.nytimesmostpopular.data.network.NetworkModule
+import com.ddworks.nytimesmostpopular.di.UIModule
+import com.ddworks.nytimesmostpopular.domain.InteractorModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 import timber.log.Timber
 
-class NYTimesApplication : RainbowCakeApplication() {
-
-    override lateinit var injector: AppComponent
-
-    override fun setupInjector() {
-        injector = DaggerAppComponent.builder()
-            .applicationModule(ApplicationModule(this))
-            .build()
-    }
+class NYTimesApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        startKoin {
+            androidLogger()
+            androidContext(this@NYTimesApplication)
+            modules(listOf(UIModule, InteractorModule, NetworkModule, DatabaseModule))
+        }
 
         rainbowCake {
             logger = Loggers.TIMBER
@@ -29,5 +31,4 @@ class NYTimesApplication : RainbowCakeApplication() {
 
         Timber.plant(Timber.DebugTree())
     }
-
 }

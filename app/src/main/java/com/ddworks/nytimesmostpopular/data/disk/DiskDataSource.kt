@@ -1,9 +1,8 @@
 package com.ddworks.nytimesmostpopular.data.disk
 
 import com.ddworks.nytimesmostpopular.domain.DomainNews
-import javax.inject.Inject
 
-class DiskDataSource @Inject constructor(
+class DiskDataSource(
     private val databaseDao: DatabaseDao
 ) {
     fun saveNews(networkNewsList: List<DomainNews>) {

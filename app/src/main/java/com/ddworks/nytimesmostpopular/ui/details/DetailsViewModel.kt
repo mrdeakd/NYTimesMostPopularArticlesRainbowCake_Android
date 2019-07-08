@@ -2,9 +2,8 @@ package com.ddworks.nytimesmostpopular.ui.details
 
 import co.zsmb.rainbowcake.base.JobViewModel
 import com.ddworks.nytimesmostpopular.util.Functions
-import javax.inject.Inject
 
-class DetailsViewModel @Inject constructor(
+class DetailsViewModel(
     private val detailsPresenter: DetailsPresenter
 ) : JobViewModel<DetailsViewState>(Loading) {
 
