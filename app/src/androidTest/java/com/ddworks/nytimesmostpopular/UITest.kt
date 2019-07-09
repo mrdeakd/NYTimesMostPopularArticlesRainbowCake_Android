@@ -31,12 +31,12 @@ class UITest {
     }
 
     @Test
-    fun openList(){
+    fun `open mainFragment list and check if that's what shows on the display`(){
         onView(withId(R.id.rv_items)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun openNewsDetails(){
+    fun `open the fist item of the list and check if the detailFragment is opened`(){
         onView(withId(R.id.rv_items)).perform(actionOnItemAtPosition<NewsAdapter.NewsViewHolder>(0, MyViewAction.clickOnViewChild(R.id.iv_opendetailactivity)))
         onView(withId(R.id.detailsFragment)).check(matches(isDisplayed()))
     }
