@@ -16,6 +16,9 @@ interface DatabaseDao {
     @Query("SELECT * FROM newsClass WHERE id=:id")
     fun getNewsById(id: Int): DomainNews
 
+    @Query("SELECT * FROM newsClass WHERE title LIKE '%' || :matchingString || '%' COLLATE NOCASE")
+    fun getNewsByMatchingString(matchingString: String): List<DomainNews>
+
     @Insert
     fun insertNews(art: List<out DomainNews>)
 }

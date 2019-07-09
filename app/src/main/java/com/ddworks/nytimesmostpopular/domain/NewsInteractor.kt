@@ -18,4 +18,6 @@ class NewsInteractor(
     fun getNewNews(): List<DomainNews> = nyDiskDataSource.getNews()
 
     fun getNewNewsById(newsId : String): DomainNews = nyDiskDataSource.getNewsById(newsId)
+
+    fun getNewsByMatchingString(matchingString : String): List<DomainNews> = nyDiskDataSource.getNewsByMatchingString(matchingString)
 }

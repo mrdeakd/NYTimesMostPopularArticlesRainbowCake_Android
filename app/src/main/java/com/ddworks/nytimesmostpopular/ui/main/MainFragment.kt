@@ -1,8 +1,11 @@
 package com.ddworks.nytimesmostpopular.ui.main
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
@@ -26,22 +29,39 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         swipe_layout.setOnRefreshListener {
-            viewModel.checkInternetConnection()
             viewModel.loadAll()
-            swipe_layout.isRefreshing = false
         }
         rv_items.adapter = adapter
         rv_items.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        val searchItem =  menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                viewModel.changeSearchString(newText)
+                return true
+            }
+
+        })
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     override fun onStart() {
         super.onStart()
-        viewModel.checkInternetConnection()
         viewModel.loadAll()
     }
 
     override fun render(viewState: MainViewState) {
+        swipe_layout.isRefreshing = false
         progress_circular.visibility = View.INVISIBLE
         rv_items.visibility = View.INVISIBLE
         when (viewState) {
@@ -57,7 +77,11 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
             }
             is NewsDetailedLoaded -> {
                 navigator?.add(DetailsFragment.newInstance(viewState.newsId.toString()))
-                viewModel.setStateToLoaded()
+                viewModel.setStateToDetailPageLoaded()
+            }
+            is NewsSearching ->{
+                rv_items.visibility = View.VISIBLE
+                adapter.submitList(viewState.dataList)
             }
         }
     }

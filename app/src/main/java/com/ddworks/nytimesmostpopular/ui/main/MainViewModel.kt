@@ -7,23 +7,33 @@ class MainViewModel(
     private val mainPresenter: MainPresenter
 ) : JobViewModel<MainViewState>(Loading) {
     fun loadAll() = execute {
+        checkInternetConnection()
+        val previousState = viewState
         viewState = Loading
-        viewState = NewsLoaded(mainPresenter.getUser())
-    }
-
-    fun checkInternetConnection(): Boolean{
-        if(!Functions.isConnected()){
-            viewState = NoConnection
-            return false
+        viewState = when (previousState) {
+            is NewsSearching -> previousState.copy(mainPresenter.getNewsByMatchingString(previousState.searchString))
+            else -> NewsLoaded(mainPresenter.getNews())
         }
-        return true
     }
 
     fun openDetail(newsId: Int) {
         viewState = NewsDetailedLoaded(newsId)
     }
 
-    fun setStateToLoaded() {
-        viewState = Loaded
+    fun setStateToDetailPageLoaded() {
+        viewState = DetailPageLoaded
+    }
+
+    fun changeSearchString(searchString: String) = execute{
+        when(viewState){
+            is NewsSearching -> viewState = (viewState as NewsSearching).copy(dataList = mainPresenter.getNewsByMatchingString(searchString))
+            is NewsLoaded -> viewState = NewsSearching(mainPresenter.getNewsByMatchingString(searchString),searchString)
+        }
+    }
+
+    private fun checkInternetConnection(){
+        if (!Functions.isConnected()) {
+            viewState = NoConnection
+        }
     }
 }
