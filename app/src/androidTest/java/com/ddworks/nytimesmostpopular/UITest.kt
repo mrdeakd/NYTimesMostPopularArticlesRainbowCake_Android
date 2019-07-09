@@ -36,7 +36,7 @@ class UITest {
     }
 
     @Test
-    fun `open the fist item of the list and check if the detailFragment is opened`(){
+    fun `open the first item of the list and check if the detailFragment is opened`(){
         onView(withId(R.id.rv_items)).perform(actionOnItemAtPosition<NewsAdapter.NewsViewHolder>(0, MyViewAction.clickOnViewChild(R.id.iv_opendetailactivity)))
         onView(withId(R.id.detailsFragment)).check(matches(isDisplayed()))
     }
