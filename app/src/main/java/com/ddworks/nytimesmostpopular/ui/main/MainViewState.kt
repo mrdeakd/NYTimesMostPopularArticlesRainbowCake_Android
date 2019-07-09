@@ -8,7 +8,7 @@ object NoConnection : MainViewState()
 
 object Loading : MainViewState()
 
-object Loaded : MainViewState()
+object DetailPageLoaded : MainViewState()
 
 data class NewsLoaded(val dataList: List<DomainNews> = emptyList()) : MainViewState()
 

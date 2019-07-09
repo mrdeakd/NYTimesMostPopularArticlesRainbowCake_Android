@@ -75,7 +75,7 @@ class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel> 
         }
     }
 
-    fun openInCrome(url: String){
+    private fun openInCrome(url: String){
         val intent = Intent(Intent.ACTION_VIEW)
             .setData(Uri.parse(url))
             .setPackage(getString(R.string.cromepackage))

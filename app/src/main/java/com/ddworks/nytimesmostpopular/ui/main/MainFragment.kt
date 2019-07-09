@@ -12,7 +12,6 @@ import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.koin.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.navigator
 import com.ddworks.nytimesmostpopular.R
-import com.ddworks.nytimesmostpopular.domain.DomainNews
 import com.ddworks.nytimesmostpopular.ui.details.DetailsFragment
 import com.ddworks.nytimesmostpopular.util.NewsAdapter
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -32,9 +31,7 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         swipe_layout.setOnRefreshListener {
-            viewModel.checkInternetConnection()
             viewModel.loadAll()
-            swipe_layout.isRefreshing = false
         }
         rv_items.adapter = adapter
         rv_items.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -60,11 +57,11 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
 
     override fun onStart() {
         super.onStart()
-        viewModel.checkInternetConnection()
         viewModel.loadAll()
     }
 
     override fun render(viewState: MainViewState) {
+        swipe_layout.isRefreshing = false
         progress_circular.visibility = View.INVISIBLE
         rv_items.visibility = View.INVISIBLE
         when (viewState) {
@@ -80,16 +77,11 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
             }
             is NewsDetailedLoaded -> {
                 navigator?.add(DetailsFragment.newInstance(viewState.newsId.toString()))
-                viewModel.setStateToLoaded()
+                viewModel.setStateToDetailPageLoaded()
             }
             is NewsSearching ->{
                 rv_items.visibility = View.VISIBLE
-                val listOfFilteredNews = mutableListOf<DomainNews>()
-                for(item in viewState.dataList){
-                    if(item.title.toLowerCase().contains(viewState.searchString.toLowerCase()))
-                        listOfFilteredNews.add(item)
-                }
-                adapter.submitList(listOfFilteredNews)
+                adapter.submitList(viewState.dataList)
             }
         }
     }

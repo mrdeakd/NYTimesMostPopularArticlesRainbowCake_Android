@@ -17,4 +17,8 @@ class DiskDataSource(
     fun getNewsById(id : String): DomainNews {
         return databaseDao.getNewsById(id.toInt())
     }
+
+    fun getNewsByMatchingString(matchingString : String): List<DomainNews> {
+        return databaseDao.getNewsByMatchingString(matchingString)
+    }
 }
