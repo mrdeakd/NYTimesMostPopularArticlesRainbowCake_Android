@@ -10,6 +10,7 @@ import co.zsmb.rainbowcake.extensions.applyArgs
 import co.zsmb.rainbowcake.koin.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.extensions.requireArguments
 import co.zsmb.rainbowcake.navigation.extensions.requireString
+import com.ddworks.nytimesmostpopular.MainActivity
 import com.ddworks.nytimesmostpopular.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -57,6 +58,8 @@ class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel> 
         when (viewState) {
             is Loading -> {
                 progress_circular.visibility = View.VISIBLE
+                //Idling
+                MainActivity.idlingResource.increment()
             }
             is NoConnection -> {
                 Toast.makeText(this.context, getString(R.string.NoConnection), Toast.LENGTH_LONG).show()
@@ -71,6 +74,8 @@ class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel> 
                     if(viewModel.checkInternetConnection())
                         openInCrome(viewState.data.url)
                 }
+                //Idling
+                MainActivity.idlingResource.decrement()
             }
         }
     }

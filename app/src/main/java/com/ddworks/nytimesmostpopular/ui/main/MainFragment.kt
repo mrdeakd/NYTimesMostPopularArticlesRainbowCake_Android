@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.koin.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.navigator
+import com.ddworks.nytimesmostpopular.MainActivity
 import com.ddworks.nytimesmostpopular.R
 import com.ddworks.nytimesmostpopular.ui.details.DetailsFragment
 import com.ddworks.nytimesmostpopular.util.NewsAdapter
@@ -47,6 +48,8 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
         when (viewState) {
             is Loading -> {
                 progress_circular.visibility = View.VISIBLE
+                //Idling
+                MainActivity.idlingResource.increment()
             }
             is NoConnection -> {
                 Toast.makeText(this.context, getString(R.string.NoConnection), Toast.LENGTH_LONG).show()
@@ -54,6 +57,8 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
             is NewsLoaded -> {
                 rv_items.visibility = View.VISIBLE
                 adapter.submitList(viewState.dataList)
+                //Idling
+                MainActivity.idlingResource.decrement()
             }
             is NewsDetailedLoaded -> {
                 navigator?.add(DetailsFragment.newInstance(viewState.newsId.toString()))
