@@ -2,6 +2,8 @@ package com.ddworks.nytimesmostpopular.di
 
 import com.ddworks.nytimesmostpopular.ui.details.DetailsPresenter
 import com.ddworks.nytimesmostpopular.ui.details.DetailsViewModel
+import com.ddworks.nytimesmostpopular.ui.login.LoginPresenter
+import com.ddworks.nytimesmostpopular.ui.login.LoginViewModel
 import com.ddworks.nytimesmostpopular.ui.main.MainPresenter
 import com.ddworks.nytimesmostpopular.ui.main.MainViewModel
 import org.koin.dsl.module
@@ -9,6 +11,8 @@ import org.koin.dsl.module
 val UIModule = module {
     factory { MainPresenter(get()) }
     factory { DetailsPresenter(get()) }
+    factory { LoginPresenter() }
     factory { MainViewModel(get()) }
     factory { DetailsViewModel(get()) }
+    factory { LoginViewModel(get()) }
 }

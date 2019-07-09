@@ -13,6 +13,7 @@ import co.zsmb.rainbowcake.koin.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.navigator
 import com.ddworks.nytimesmostpopular.MainActivity
 import com.ddworks.nytimesmostpopular.R
+import com.ddworks.nytimesmostpopular.domain.DomainNews
 import com.ddworks.nytimesmostpopular.ui.details.DetailsFragment
 import com.ddworks.nytimesmostpopular.util.NewsAdapter
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -88,7 +89,20 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
                 rv_items.visibility = View.VISIBLE
                 adapter.submitList(viewState.dataList)
             }
+            is NewsSearching ->{
+                rv_items.visibility = View.VISIBLE
+                filterBy(viewState)
+            }
         }
+    }
+
+    private fun filterBy(viewState: NewsSearching) {
+        val listOfFilteredNews = mutableListOf<DomainNews>()
+        for (item in viewState.dataList) {
+            if (item.title.toLowerCase().contains(viewState.searchString.toLowerCase()))
+                listOfFilteredNews.add(item)
+        }
+        adapter.submitList(listOfFilteredNews)
     }
 
 }
