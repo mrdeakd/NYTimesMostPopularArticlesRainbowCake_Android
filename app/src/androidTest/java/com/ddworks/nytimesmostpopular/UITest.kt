@@ -6,6 +6,7 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -17,6 +18,12 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.NoMatchingViewException
+import androidx.test.espresso.ViewAssertion
+import org.hamcrest.CoreMatchers.`is`
+import org.junit.Assert.assertNotEquals
+
 
 @RunWith(AndroidJUnit4::class)
 class UITest {
@@ -31,7 +38,7 @@ class UITest {
     }
 
     @Test
-    fun `open mainFragment list and check if that's what shows on the display`(){
+    fun `open main Fragment list and check if thats what shows on the display`(){
         onView(withId(R.id.rv_items)).check(matches(isDisplayed()))
     }
 
@@ -42,8 +49,11 @@ class UITest {
     }
 
     @Test
-    fun searchInTheList(){
-        //TODO Test searching in rv list
+    fun `search in the list and check if itemCount is not the origin twenty`(){
+        onView(withId(R.id.action_search)).perform(click())
+        onView(withId(androidx.appcompat.R.id.search_src_text)).perform(typeText("Random text"))
+        onView(withId(androidx.appcompat.R.id.search_src_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_items)).check(RecyclerViewItemCountAssertion(20))
     }
 
     object MyViewAction {
@@ -53,6 +63,18 @@ class UITest {
             override fun getDescription() = "Click on a child view with specified id."
 
             override fun perform(uiController: UiController, view: View) = click().perform(uiController, view.findViewById<View>(viewId))
+        }
+    }
+
+    inner class RecyclerViewItemCountAssertion(private val expectedCount: Int) : ViewAssertion {
+        override fun check(view: View, noViewFoundException: NoMatchingViewException?) {
+            if (noViewFoundException != null) {
+                throw noViewFoundException
+            }
+
+            val recyclerView = view as RecyclerView
+            val adapter = recyclerView.adapter
+            assertNotEquals(adapter!!.itemCount, `is`(expectedCount))
         }
     }
 }
