@@ -40,6 +40,14 @@ class NewsAdapter(
         }
     }
 
+    fun getListOfNews(): List<DomainNews> {
+        val list = mutableListOf<DomainNews>()
+        for (i in 0 until itemCount) {
+            list.add(getItem(i))
+        }
+        return list
+    }
+
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvBy: TextView = itemView.tv_by
         var tvDate: TextView = itemView.tv_date

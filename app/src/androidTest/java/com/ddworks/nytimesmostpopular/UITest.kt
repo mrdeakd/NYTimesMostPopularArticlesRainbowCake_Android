@@ -19,10 +19,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.espresso.NoMatchingViewException
-import androidx.test.espresso.ViewAssertion
-import org.hamcrest.CoreMatchers.`is`
-import org.junit.Assert.assertNotEquals
+import com.ddworks.nytimesmostpopular.domain.DomainNews
+import org.junit.Assert
 
 
 @RunWith(AndroidJUnit4::class)
@@ -51,9 +49,15 @@ class UITest {
     @Test
     fun searchInTheListAndCheckIfItemCountIsNotTheOriginTwenty(){
         onView(withId(R.id.action_search)).perform(click())
-        onView(withId(androidx.appcompat.R.id.search_src_text)).perform(typeText("Random text"))
-        onView(withId(androidx.appcompat.R.id.search_src_text)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_items)).check(RecyclerViewItemCountAssertion(20))
+
+        val searchString = "10"
+        val recyclerView = activityRule.activity.findViewById<RecyclerView>(R.id.rv_items)
+        val adapter = recyclerView.adapter
+        val expectedCount = countFilteredNews((adapter as NewsAdapter).getListOfNews(), searchString)
+
+        onView(withId(androidx.appcompat.R.id.search_src_text)).perform(typeText(searchString))
+
+        Assert.assertEquals(adapter.itemCount, expectedCount)
     }
 
     object MyViewAction {
@@ -66,15 +70,13 @@ class UITest {
         }
     }
 
-    inner class RecyclerViewItemCountAssertion(private val expectedCount: Int) : ViewAssertion {
-        override fun check(view: View, noViewFoundException: NoMatchingViewException?) {
-            if (noViewFoundException != null) {
-                throw noViewFoundException
+    private fun countFilteredNews(list: List<DomainNews>, searchString: String): Int {
+        var count = 0
+        list.forEach {
+            if (it.title.contains(searchString)) {
+                count++
             }
-
-            val recyclerView = view as RecyclerView
-            val adapter = recyclerView.adapter
-            assertNotEquals(adapter!!.itemCount, `is`(expectedCount))
         }
+        return count
     }
 }
