@@ -1,17 +1,54 @@
 package com.ddworks.nytimesmostpopular.ui.login
 
 import co.zsmb.rainbowcake.base.JobViewModel
+import com.google.firebase.auth.FirebaseAuth
 
-class LoginViewModel(
-    private val loginPresenter: LoginPresenter
-) : JobViewModel<LoginViewState>(Login) {
+class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
 
-    fun login() = execute {
-        viewState = Logged
+    fun setLoginScreen(email: String = "") {
+        viewState = LoginReady(email)
     }
 
-    fun reg() = execute {
-        viewState = Reg
+    fun register() {
+        viewState = Register
     }
 
+    fun tryToLogin(email: String, password: String) {
+        viewState = TryToLogin
+        val auth = FirebaseAuth.getInstance()
+
+        if (email.isEmpty() || password.isEmpty()) {
+            viewState = RegistrationError
+        }
+        else {
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        viewState = UserSuccessfullyLoggedIn
+                    } else {
+                        viewState = LoginError
+                    }
+                }
+        }
+    }
+
+    fun tryToRegister(email: String, password: String) {
+        viewState = TryToRegister
+        val auth = FirebaseAuth.getInstance()
+
+        if (email.isEmpty() || password.isEmpty()) {
+            viewState = RegistrationError
+        }
+        else {
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        val user = auth.currentUser!!
+                        viewState = UserSuccessfullyCreated(user.email!!)
+                    } else {
+                        viewState = RegistrationError
+                    }
+                }
+        }
+    }
 }
