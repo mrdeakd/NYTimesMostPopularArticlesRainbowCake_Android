@@ -38,18 +38,18 @@ class UITest {
     }
 
     @Test
-    fun `open main Fragment list and check if thats what shows on the display`(){
+    fun openMainFragmentListAndCheckIfThatsWhatShowsOnTheDisplay(){
         onView(withId(R.id.rv_items)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun `open the first item of the list and check if the detailFragment is opened`(){
+    fun openTheFirstItemOfTheListAndCheckIfTheDetailFragmentIsOpened(){
         onView(withId(R.id.rv_items)).perform(actionOnItemAtPosition<NewsAdapter.NewsViewHolder>(0, MyViewAction.clickOnViewChild(R.id.iv_opendetailactivity)))
         onView(withId(R.id.detailsFragment)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun `search in the list and check if itemCount is not the origin twenty`(){
+    fun searchInTheListAndCheckIfItemCountIsNotTheOriginTwenty(){
         onView(withId(R.id.action_search)).perform(click())
         onView(withId(androidx.appcompat.R.id.search_src_text)).perform(typeText("Random text"))
         onView(withId(androidx.appcompat.R.id.search_src_text)).check(matches(isDisplayed()))
