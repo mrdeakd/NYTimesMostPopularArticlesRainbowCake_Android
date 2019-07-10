@@ -10,7 +10,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.ddworks.nytimesmostpopular"
-        minSdkVersion 26
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -73,7 +73,8 @@ dependencies {
 
     //MockK
     testImplementation "io.mockk:mockk:1.9.3.kotlin12"
-    androidTestImplementation "io.mockk:mockk-android:1.9.3.kotlin12"
+    androidTestImplementation('io.mockk:mockk-android:1.9.3') { exclude module: 'objenesis' }
+    androidTestImplementation 'org.objenesis:objenesis:2.6'
 
     //Espresso
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
