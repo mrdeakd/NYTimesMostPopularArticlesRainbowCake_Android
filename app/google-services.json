@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "534790332262",
+    "firebase_url": "https://nytimesmostpopular-deak.firebaseio.com",
+    "project_id": "nytimesmostpopular-deak",
+    "storage_bucket": "nytimesmostpopular-deak.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534790332262:android:f3389dd86862f6da",
+        "android_client_info": {
+          "package_name": "com.ddworks.nytimesmostpopular"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534790332262-6cgi2e0e8du4g0i3telc04nnqs17hd16.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ddworks.nytimesmostpopular",
+            "certificate_hash": "f836a777f92d4301c452aa9734608f3cd4338930"
+          }
+        },
+        {
+          "client_id": "534790332262-7oe1oecjludpff7thp7glovlsjlihcml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGeja_zucXgA4hPlHnrChhkgOBecKvIR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "534790332262-7oe1oecjludpff7thp7glovlsjlihcml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
