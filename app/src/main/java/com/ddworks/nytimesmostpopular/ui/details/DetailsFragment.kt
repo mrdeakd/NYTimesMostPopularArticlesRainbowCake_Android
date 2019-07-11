@@ -43,6 +43,7 @@ class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel> 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        retainInstance = true
         initArguments()
     }
 
