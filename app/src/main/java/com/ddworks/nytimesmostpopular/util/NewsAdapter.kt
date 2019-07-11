@@ -34,7 +34,7 @@ class NewsAdapter(
         holder.tvBy.text = newsItem.byline
         holder.tvDate.text = newsItem.published_date
         holder.tvTitle.text = newsItem.title
-        Picasso.get().load(newsItem.picture).into(holder.ivImageOfNews)
+        Picasso.get().load(newsItem.picture).placeholder(R.drawable.icon_calendar).into(holder.ivImageOfNews)
         holder.ivOpenDetailActivity.setOnClickListener{
             listener.onItemClick(newsItem.id)
         }
