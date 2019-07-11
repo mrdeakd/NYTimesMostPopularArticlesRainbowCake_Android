@@ -4,7 +4,7 @@ import com.ddworks.nytimesmostpopular.data.disk.DatabaseDao
 import com.ddworks.nytimesmostpopular.data.disk.DiskDataSource
 import com.ddworks.nytimesmostpopular.data.network.NetworkDataSource
 import com.ddworks.nytimesmostpopular.domain.DomainNews
-import com.ddworks.nytimesmostpopular.domain.NewsInteractor
+import com.ddworks.nytimesmostpopular.domain.NewsInteractorImp
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -73,7 +73,7 @@ class DiskDataSourceUnitTest {
         val dao = mockk<DatabaseDao>()
         val networkDS = mockk<NetworkDataSource>()
         val diskDS = DiskDataSource(dao)
-        val interactor = NewsInteractor(networkDS, diskDS)
+        val interactor = NewsInteractorImp(networkDS, diskDS)
 
         val news = listOf(
             DomainNews("", "", "", "", 10, ""),

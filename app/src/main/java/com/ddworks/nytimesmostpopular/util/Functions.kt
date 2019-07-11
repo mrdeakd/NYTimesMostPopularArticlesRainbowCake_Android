@@ -1,6 +1,7 @@
 package com.ddworks.nytimesmostpopular.util
 
 import java.io.IOException
+import java.util.concurrent.atomic.AtomicBoolean
 
 object Functions {
     fun isConnected(): Boolean {
@@ -15,5 +16,23 @@ object Functions {
             e.printStackTrace()
         }
         return false
+    }
+
+    private var isRunningTest: AtomicBoolean? = null
+
+    @Synchronized
+    fun isRunningTest(): Boolean {
+        if (null == isRunningTest) {
+            val istest: Boolean = try {
+                Class.forName("com.ddworks.nytimesmostpopular.UITest")
+                true
+            } catch (e: ClassNotFoundException) {
+                false
+            }
+
+            isRunningTest = AtomicBoolean(istest)
+        }
+
+        return isRunningTest!!.get()
     }
 }
