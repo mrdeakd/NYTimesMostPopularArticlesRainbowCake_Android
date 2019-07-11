@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/loginViewFlipper"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:descendantFocusability="beforeDescendants"
+             android:focusableInTouchMode="true" >
+
+    <!-- 0 -->
+    <ProgressBar
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center" />
+
+    <!-- 1 -->
+    <include layout="@layout/fragment_login_layout" />
+
+    <!-- 2 -->
+    <include layout="@layout/fragment_register_layout" />
+
+</ViewFlipper>
+

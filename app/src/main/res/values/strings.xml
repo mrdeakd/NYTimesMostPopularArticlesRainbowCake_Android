@@ -4,4 +4,16 @@
     <string name="cromepackage">com.android.chrome</string>
     <string name="action_settings">Action Settings</string>
     <string name="search">Search</string>
+    <string name="this_email_already_exists">This email already exists.</string>
+    <string name="registration_failed">Registration failed.</string>
+    <string name="incorrect_email_or_password">Incorrect email or password.</string>
+    <string name="login_failed">Login failed.</string>
+    <string name="ok">OK</string>
+    <string name="name">Name</string>
+    <string name="e_mail_address">E-mail address</string>
+    <string name="login">LOGIN</string>
+    <string name="password">Password</string>
+    <string name="no_account_yet_create_one">No account yet? Create one</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="already_a_member_login">Already a member? Login</string>
 </resources>

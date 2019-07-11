@@ -13,8 +13,12 @@ import co.zsmb.rainbowcake.koin.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.navigator
 import com.ddworks.nytimesmostpopular.MainActivity
 import com.ddworks.nytimesmostpopular.R
+import com.ddworks.nytimesmostpopular.domain.DomainNews
 import com.ddworks.nytimesmostpopular.ui.details.DetailsFragment
+import com.ddworks.nytimesmostpopular.ui.login.LoginFragment
+import com.ddworks.nytimesmostpopular.util.FirebaseHelper
 import com.ddworks.nytimesmostpopular.util.NewsAdapter
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAdapter.NewsItemListener {
@@ -53,6 +57,12 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
             }
 
         })
+        val signOutItem =  menu.findItem(R.id.sign_out)
+        signOutItem.setOnMenuItemClickListener {
+            FirebaseAuth.getInstance().signOut()
+            navigator!!.replace(LoginFragment())
+            true
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -90,5 +100,4 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
             }
         }
     }
-
 }
