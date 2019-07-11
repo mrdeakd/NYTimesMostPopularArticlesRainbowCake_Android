@@ -34,10 +34,18 @@ class NewsAdapter(
         holder.tvBy.text = newsItem.byline
         holder.tvDate.text = newsItem.published_date
         holder.tvTitle.text = newsItem.title
-        Picasso.get().load(newsItem.picture).into(holder.ivImageOfNews)
+        Picasso.get().load(newsItem.picture).placeholder(R.drawable.icon_calendar).into(holder.ivImageOfNews)
         holder.ivOpenDetailActivity.setOnClickListener{
             listener.onItemClick(newsItem.id)
         }
+    }
+
+    fun getListOfNews(): List<DomainNews> {
+        val list = mutableListOf<DomainNews>()
+        for (i in 0 until itemCount) {
+            list.add(getItem(i))
+        }
+        return list
     }
 
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
