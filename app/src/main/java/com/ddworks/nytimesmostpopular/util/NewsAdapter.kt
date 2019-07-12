@@ -13,9 +13,9 @@ import com.ddworks.nytimesmostpopular.domain.DomainNews
 import com.ddworks.nytimesmostpopular.util.NewsAdapter.NewsViewHolder
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_item.view.*
-import kotlinx.android.synthetic.main.row_item.view.tv_by
-import kotlinx.android.synthetic.main.row_item.view.tv_date
-import kotlinx.android.synthetic.main.row_item.view.tv_title
+import kotlinx.android.synthetic.main.row_item.view.tvBy
+import kotlinx.android.synthetic.main.row_item.view.tvDate
+import kotlinx.android.synthetic.main.row_item.view.tvTitle
 
 class NewsAdapter(
     private val listener: NewsItemListener
@@ -49,11 +49,11 @@ class NewsAdapter(
     }
 
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvBy: TextView = itemView.tv_by
-        var tvDate: TextView = itemView.tv_date
-        var tvTitle: TextView = itemView.tv_title
-        var ivImageOfNews: ImageView = itemView.iv_imageofnews
-        var ivOpenDetailActivity: ImageView = itemView.iv_opendetailactivity
+        var tvBy: TextView = itemView.tvBy
+        var tvDate: TextView = itemView.tvDate
+        var tvTitle: TextView = itemView.tvTitle
+        var ivImageOfNews: ImageView = itemView.ivImageOfNews
+        var ivOpenDetailActivity: ImageView = itemView.ivOpenDetailActivity
     }
 
     object NewsComparator : DiffUtil.ItemCallback<DomainNews>() {

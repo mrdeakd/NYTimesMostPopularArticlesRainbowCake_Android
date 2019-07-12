@@ -1,6 +1,7 @@
 package com.ddworks.nytimesmostpopular.ui.login
 
 import co.zsmb.rainbowcake.base.JobViewModel
+import com.ddworks.nytimesmostpopular.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
@@ -14,6 +15,8 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
     }
 
     fun tryToLogin(email: String, password: String) {
+        //Idling
+        MainActivity.idlingResource.increment()
         viewState = TryToLogin
         val auth = FirebaseAuth.getInstance()
 
@@ -28,11 +31,15 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
                     } else {
                         viewState = LoginError
                     }
+                    //Idling
+                    MainActivity.idlingResource.decrement()
                 }
         }
     }
 
     fun tryToRegister(email: String, password: String) {
+        //Idling
+        MainActivity.idlingResource.increment()
         viewState = TryToRegister
         val auth = FirebaseAuth.getInstance()
 
@@ -48,6 +55,8 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
                     } else {
                         viewState = RegistrationError
                     }
+                    //Idling
+                    MainActivity.idlingResource.decrement()
                 }
         }
     }
