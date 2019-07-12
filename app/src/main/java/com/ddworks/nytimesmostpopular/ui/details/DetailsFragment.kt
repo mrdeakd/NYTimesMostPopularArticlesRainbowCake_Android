@@ -10,7 +10,6 @@ import co.zsmb.rainbowcake.extensions.applyArgs
 import co.zsmb.rainbowcake.koin.getViewModelFromFactory
 import co.zsmb.rainbowcake.navigation.extensions.requireArguments
 import co.zsmb.rainbowcake.navigation.extensions.requireString
-import com.ddworks.nytimesmostpopular.MainActivity
 import com.ddworks.nytimesmostpopular.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -65,11 +64,11 @@ class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel> 
             }
             is NewsLoaded -> {
                 cL_layout.visibility = View.VISIBLE
-                Picasso.get().load(viewState.data.picture).into(iv_imageofnewsdetail)
-                tv_title.text = viewState.data.title
-                tv_by.text = viewState.data.byline
-                tv_date.text = viewState.data.published_date
-                b_opencrome.setOnClickListener {
+                Picasso.get().load(viewState.data.picture).into(ivImageOfNewsDetail)
+                tvTitle.text = viewState.data.title
+                tvBy.text = viewState.data.byline
+                tvDate.text = viewState.data.published_date
+                bOpenCrome.setOnClickListener {
                     if(viewModel.checkInternetConnection())
                         openInCrome(viewState.data.url)
                 }

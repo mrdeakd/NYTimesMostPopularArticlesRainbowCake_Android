@@ -19,7 +19,7 @@ class MainActivity : SimpleNavActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            if (userIsLoggedIn() || isRunningTest())
+            if (userIsLoggedIn())
                 navigator.add(MainFragment())
             else
                 navigator.add(LoginFragment())
