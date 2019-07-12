@@ -5,6 +5,7 @@ import androidx.test.espresso.idling.CountingIdlingResource
 import co.zsmb.rainbowcake.navigation.SimpleNavActivity
 import com.ddworks.nytimesmostpopular.ui.login.LoginFragment
 import com.ddworks.nytimesmostpopular.ui.main.MainFragment
+import com.ddworks.nytimesmostpopular.util.Functions.isRunningTest
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : SimpleNavActivity() {
@@ -18,7 +19,7 @@ class MainActivity : SimpleNavActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            if (userIsLoggedIn())
+            if (userIsLoggedIn() || isRunningTest())
                 navigator.add(MainFragment())
             else
                 navigator.add(LoginFragment())

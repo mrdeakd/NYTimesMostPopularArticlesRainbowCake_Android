@@ -59,8 +59,6 @@ class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel> 
         when (viewState) {
             is Loading -> {
                 progress_circular.visibility = View.VISIBLE
-                //Idling
-                MainActivity.idlingResource.increment()
             }
             is NoConnection -> {
                 Toast.makeText(this.context, getString(R.string.NoConnection), Toast.LENGTH_LONG).show()
@@ -75,8 +73,6 @@ class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel> 
                     if(viewModel.checkInternetConnection())
                         openInCrome(viewState.data.url)
                 }
-                //Idling
-                MainActivity.idlingResource.decrement()
             }
         }
     }

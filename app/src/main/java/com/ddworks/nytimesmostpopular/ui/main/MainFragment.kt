@@ -78,8 +78,6 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
         when (viewState) {
             is Loading -> {
                 progress_circular.visibility = View.VISIBLE
-                //Idling
-                MainActivity.idlingResource.increment()
             }
             is NoConnection -> {
                 Toast.makeText(this.context, getString(R.string.NoConnection), Toast.LENGTH_LONG).show()
@@ -87,8 +85,6 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
             is NewsLoaded -> {
                 rv_items.visibility = View.VISIBLE
                 adapter.submitList(viewState.dataList)
-                //Idling
-                MainActivity.idlingResource.decrement()
             }
             is NewsDetailedLoaded -> {
                 navigator?.add(DetailsFragment.newInstance(viewState.newsId.toString()))
