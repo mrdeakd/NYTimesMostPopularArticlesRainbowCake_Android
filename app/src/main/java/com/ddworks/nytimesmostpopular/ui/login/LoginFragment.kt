@@ -2,6 +2,7 @@ package com.ddworks.nytimesmostpopular.ui.login
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.extensions.exhaustive
 import co.zsmb.rainbowcake.koin.getViewModelFromFactory
@@ -67,6 +68,9 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
             }
             is UserSuccessfullyCreated -> {
                 viewModel.setLoginScreen(viewState.email)
+            }
+            is NoConnection ->{
+                Toast.makeText(this.context, getString(R.string.NoConnection), Toast.LENGTH_LONG).show()
             }
         }.exhaustive
     }

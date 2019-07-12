@@ -6,6 +6,8 @@ object Loading : LoginViewState()
 
 data class LoginReady(val email: String = "") : LoginViewState()
 
+object NoConnection : LoginViewState()
+
 object TryToLogin: LoginViewState()
 
 object TryToRegister: LoginViewState()
