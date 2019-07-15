@@ -1,10 +1,14 @@
 package com.ddworks.nytimesmostpopular.ui.login
 
 import co.zsmb.rainbowcake.base.JobViewModel
+import co.zsmb.rainbowcake.base.OneShotEvent
+import com.ddworks.nytimesmostpopular.util.Functions
 import com.ddworks.nytimesmostpopular.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
+
+    object NoInternetEvent : OneShotEvent
 
     fun setLoginScreen(email: String = "") {
         viewState = LoginReady(email)
@@ -15,15 +19,19 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
     }
 
     fun tryToLogin(email: String, password: String) {
-        //Idling
-        MainActivity.idlingResource.increment()
+        if(!Functions.isConnected()) {
+            postEvent(NoInternetEvent)
+            return
+        }
         viewState = TryToLogin
         val auth = FirebaseAuth.getInstance()
 
         if (email.isEmpty() || password.isEmpty()) {
-            viewState = RegistrationError
+            viewState = LoginError
         }
         else {
+            //Idling
+            MainActivity.idlingResource.increment()
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -38,8 +46,10 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
     }
 
     fun tryToRegister(email: String, password: String) {
-        //Idling
-        MainActivity.idlingResource.increment()
+        if(!Functions.isConnected()) {
+            postEvent(NoInternetEvent)
+            return
+        }
         viewState = TryToRegister
         val auth = FirebaseAuth.getInstance()
 
@@ -47,6 +57,8 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
             viewState = RegistrationError
         }
         else {
+            //Idling
+            MainActivity.idlingResource.increment()
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
