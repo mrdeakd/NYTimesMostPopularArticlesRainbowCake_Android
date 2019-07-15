@@ -1,11 +1,14 @@
 package com.ddworks.nytimesmostpopular.ui.login
 
 import co.zsmb.rainbowcake.base.JobViewModel
+import co.zsmb.rainbowcake.base.OneShotEvent
 import com.ddworks.nytimesmostpopular.util.Functions
 import com.ddworks.nytimesmostpopular.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
+
+    object NoInternetEvent : OneShotEvent
 
     fun setLoginScreen(email: String = "") {
         viewState = LoginReady(email)
@@ -17,7 +20,7 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
 
     fun tryToLogin(email: String, password: String) {
         if(!Functions.isConnected()) {
-            viewState = NoConnection
+            postEvent(NoInternetEvent)
             return
         }
         viewState = TryToLogin
@@ -44,7 +47,7 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
 
     fun tryToRegister(email: String, password: String) {
         if(!Functions.isConnected()) {
-            viewState = NoConnection
+            postEvent(NoInternetEvent)
             return
         }
         viewState = TryToRegister

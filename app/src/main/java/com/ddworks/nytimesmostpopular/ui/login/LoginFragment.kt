@@ -3,6 +3,7 @@ package com.ddworks.nytimesmostpopular.ui.login
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import co.zsmb.rainbowcake.base.OneShotEvent
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.extensions.exhaustive
 import co.zsmb.rainbowcake.koin.getViewModelFromFactory
@@ -23,6 +24,12 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
         const val LOADING = 0
         const val LOGIN = 1
         const val REGISTER = 2
+    }
+
+    override fun onEvent(event: OneShotEvent) {
+        when(event) {
+            is LoginViewModel.NoInternetEvent -> Toast.makeText(context,"Nincs internet",Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,9 +75,6 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
             }
             is UserSuccessfullyCreated -> {
                 viewModel.setLoginScreen(viewState.email)
-            }
-            is NoConnection ->{
-                Toast.makeText(this.context, getString(R.string.NoConnection), Toast.LENGTH_LONG).show()
             }
         }.exhaustive
     }
