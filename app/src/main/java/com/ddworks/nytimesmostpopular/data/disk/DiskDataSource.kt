@@ -1,7 +1,6 @@
 package com.ddworks.nytimesmostpopular.data.disk
 
 import androidx.sqlite.db.SimpleSQLiteQuery
-import com.ddworks.nytimesmostpopular.domain.DBNews
 import com.ddworks.nytimesmostpopular.util.SortOptions
 
 class DiskDataSource(

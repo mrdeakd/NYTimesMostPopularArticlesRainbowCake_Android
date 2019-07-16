@@ -5,8 +5,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.RawQuery
 import androidx.sqlite.db.SimpleSQLiteQuery
-import com.ddworks.nytimesmostpopular.domain.DBNews
-import com.ddworks.nytimesmostpopular.domain.DomainNews
 
 @Dao
 interface DatabaseDao {
