@@ -9,7 +9,7 @@ class MainPresenter(
     private val newsInteractor: NewsInteractor
 ) {
     suspend fun getNews(): List<DomainNews> = withIOContext {
-        if(!Functions.isConnected()){
+        if(Functions.isConnected()){
             newsInteractor.refreshDatabase()
         }
         newsInteractor.getNewNews()

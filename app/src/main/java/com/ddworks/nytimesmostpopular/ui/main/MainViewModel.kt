@@ -30,8 +30,7 @@ class MainViewModel(
     }
 
     fun changeSearchString(searchString: String) = execute{
-        when(viewState){
-            is NewsSearching -> viewState = (viewState as NewsSearching).copy(dataList = mainPresenter.getNewsByMatchingString(searchString))
+        when(viewState){is NewsSearching -> viewState = (viewState as NewsSearching).copy(mainPresenter.getNewsByMatchingString(searchString),searchString)
             is NewsLoaded -> viewState = NewsSearching(mainPresenter.getNewsByMatchingString(searchString),searchString)
         }
     }
