@@ -19,7 +19,7 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
     }
 
     fun tryToLogin(email: String, password: String) {
-        if(!Functions.isConnected()) {
+        if (!Functions.isConnected()) {
             postEvent(NoInternetEvent)
             return
         }
@@ -28,9 +28,8 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
 
         if (email.isEmpty() || password.isEmpty()) {
             viewState = LoginError
-        }
-        else {
-            //Idling
+        } else {
+            // Idling
             MainActivity.idlingResource.increment()
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
@@ -39,14 +38,14 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
                     } else {
                         viewState = LoginError
                     }
-                    //Idling
+                    // Idling
                     MainActivity.idlingResource.decrement()
                 }
         }
     }
 
     fun tryToRegister(email: String, password: String) {
-        if(!Functions.isConnected()) {
+        if (!Functions.isConnected()) {
             postEvent(NoInternetEvent)
             return
         }
@@ -55,9 +54,8 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
 
         if (email.isEmpty() || password.isEmpty()) {
             viewState = RegistrationError
-        }
-        else {
-            //Idling
+        } else {
+            // Idling
             MainActivity.idlingResource.increment()
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
@@ -67,7 +65,7 @@ class LoginViewModel : JobViewModel<LoginViewState>(Loading) {
                     } else {
                         viewState = RegistrationError
                     }
-                    //Idling
+                    // Idling
                     MainActivity.idlingResource.decrement()
                 }
         }

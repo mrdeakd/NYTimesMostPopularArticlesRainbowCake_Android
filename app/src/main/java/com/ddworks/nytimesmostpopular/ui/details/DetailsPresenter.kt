@@ -8,8 +8,7 @@ class DetailsPresenter(
     private val newsInteractor: NewsInteractor
 ) {
 
-    suspend fun getDataById(newsId : String): DomainNews = withIOContext {
+    suspend fun getDataById(newsId: String): DomainNews = withIOContext {
         newsInteractor.getNewNewsById(newsId)
     }
-
 }

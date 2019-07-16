@@ -6,16 +6,16 @@ object Loading : LoginViewState()
 
 data class LoginReady(val email: String = "") : LoginViewState()
 
-object TryToLogin: LoginViewState()
+object TryToLogin : LoginViewState()
 
-object TryToRegister: LoginViewState()
+object TryToRegister : LoginViewState()
 
-object Register: LoginViewState()
+object Register : LoginViewState()
 
-object UserSuccessfullyLoggedIn: LoginViewState()
+object UserSuccessfullyLoggedIn : LoginViewState()
 
-object LoginError: LoginViewState()
+object LoginError : LoginViewState()
 
-object RegistrationError: LoginViewState()
+object RegistrationError : LoginViewState()
 
-data class UserSuccessfullyCreated(val email: String): LoginViewState()
+data class UserSuccessfullyCreated(val email: String) : LoginViewState()

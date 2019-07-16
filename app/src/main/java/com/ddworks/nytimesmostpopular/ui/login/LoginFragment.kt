@@ -11,9 +11,21 @@ import co.zsmb.rainbowcake.navigation.navigator
 import com.ddworks.nytimesmostpopular.R
 import com.ddworks.nytimesmostpopular.ui.main.MainFragment
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_login_layout.*
-import kotlinx.android.synthetic.main.fragment_register_layout.*
+import kotlinx.android.synthetic.main.fragment_login_layout.loginProgressBar
+import kotlinx.android.synthetic.main.fragment_register_layout.registrationProgressBar
+import kotlinx.android.synthetic.main.fragment_login.loginViewFlipper
+import kotlinx.android.synthetic.main.fragment_register_layout.emailTextInputLayout
+import kotlinx.android.synthetic.main.fragment_register_layout.registerPassword
+import kotlinx.android.synthetic.main.fragment_login_layout.loginPasswordTextInputLayout
+import kotlinx.android.synthetic.main.fragment_login_layout.loginEmailAddress
+import kotlinx.android.synthetic.main.fragment_login_layout.loginPassword
+import kotlinx.android.synthetic.main.fragment_login_layout.loginEmailTextInputLayout
+import kotlinx.android.synthetic.main.fragment_register_layout.registerName
+import kotlinx.android.synthetic.main.fragment_register_layout.registerEmailAddress
+import kotlinx.android.synthetic.main.fragment_login_layout.tvRegister
+import kotlinx.android.synthetic.main.fragment_register_layout.tvLogin
+import kotlinx.android.synthetic.main.fragment_login_layout.buttonLogin
+import kotlinx.android.synthetic.main.fragment_register_layout.buttonRegister
 
 class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
 
@@ -27,8 +39,8 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
     }
 
     override fun onEvent(event: OneShotEvent) {
-        when(event) {
-            is LoginViewModel.NoInternetEvent -> Toast.makeText(context,"Nincs internet",Toast.LENGTH_LONG).show()
+        when (event) {
+            is LoginViewModel.NoInternetEvent -> Toast.makeText(context, "Nincs internet", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -46,7 +58,7 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>() {
         loginProgressBar.visibility = View.INVISIBLE
         registrationProgressBar.visibility = View.INVISIBLE
 
-        when(viewState) {
+        when (viewState) {
             is Loading -> {
                 loginViewFlipper.displayedChild = Flipper.LOADING
             }

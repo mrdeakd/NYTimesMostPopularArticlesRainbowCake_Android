@@ -1,15 +1,13 @@
 package com.ddworks.nytimesmostpopular.domain
 
 import com.ddworks.nytimesmostpopular.data.disk.DiskDataSource
-import com.ddworks.nytimesmostpopular.data.disk.mapToDomainNews
+import com.ddworks.nytimesmostpopular.data.disk.model.mapToDomainNews
 import com.ddworks.nytimesmostpopular.data.network.NetworkDataSource
-
 
 class NewsInteractorImp(
     private val nyNetworkDataSource: NetworkDataSource,
     private val nyDiskDataSource: DiskDataSource
 ) : NewsInteractor {
-
 
     override suspend fun refreshDatabase() {
         val networkNewsList: List<DomainNews> = nyNetworkDataSource.getNews()
@@ -23,5 +21,5 @@ class NewsInteractorImp(
     override fun getNewNewsById(newsId: String): DomainNews = nyDiskDataSource.getNewsById(newsId).mapToDomainNews()
 
     override fun getNewNewsSorted(matchingString: String, filter: String): List<DomainNews> =
-        nyDiskDataSource.getNewsSorted(matchingString,filter).map { it.mapToDomainNews() }
+        nyDiskDataSource.getNewsSorted(matchingString, filter).map { it.mapToDomainNews() }
 }

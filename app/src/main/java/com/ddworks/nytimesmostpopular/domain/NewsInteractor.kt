@@ -5,7 +5,7 @@ interface NewsInteractor {
 
     fun getNewNews(): List<DomainNews>
 
-    fun getNewNewsById(newsId : String): DomainNews
+    fun getNewNewsById(newsId: String): DomainNews
 
     fun getNewNewsSorted(matchingString: String, filter: String): List<DomainNews>
 }

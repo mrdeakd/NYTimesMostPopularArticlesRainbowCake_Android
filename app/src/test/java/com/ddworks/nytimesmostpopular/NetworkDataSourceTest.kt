@@ -17,7 +17,7 @@ import org.junit.Test
 
 class NetworkDataSourceTest {
 
-    companion object{
+    companion object {
         private lateinit var nytAPI: NYTimesApi
         private lateinit var networkDS: NetworkDataSource
         private val news1 = DomainNews("", "", "", "", 10, "url1")
@@ -26,14 +26,14 @@ class NetworkDataSourceTest {
     }
 
     private val apiResponse = NetworkResponseModel(listOf(
-        NetworkArticleModel("","","","",10,listOf(
+        NetworkArticleModel("", "", "", "", 10, listOf(
             NetworkMediaModel(
-                listOf(NetworkMediaMetaModel("url1",""))
+                listOf(NetworkMediaMetaModel("url1", ""))
             )
         )),
-        NetworkArticleModel("","","","",11,listOf(
+        NetworkArticleModel("", "", "", "", 11, listOf(
             NetworkMediaModel(
-                listOf(NetworkMediaMetaModel("url2",""))
+                listOf(NetworkMediaMetaModel("url2", ""))
             )
         ))
     ))
@@ -55,6 +55,4 @@ class NetworkDataSourceTest {
             nytAPI.getData()
         }
     }
-
 }
-
