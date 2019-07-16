@@ -3,7 +3,8 @@ package com.ddworks.nytimesmostpopular.data.disk
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.ddworks.nytimesmostpopular.domain.DomainNews
+import androidx.room.RawQuery
+import androidx.sqlite.db.SimpleSQLiteQuery
 
 @Dao
 interface DatabaseDao {
@@ -11,14 +12,14 @@ interface DatabaseDao {
     fun deleteAllNews()
 
     @Query("SELECT * FROM newsClass")
-    fun getAllNews(): List<DomainNews>
+    fun getAllNews(): List<DBNews>
 
     @Query("SELECT * FROM newsClass WHERE id=:id")
-    fun getNewsById(id: Int): DomainNews
+    fun getNewsById(id: Int): DBNews
 
-    @Query("SELECT * FROM newsClass WHERE title LIKE '%' || :matchingString || '%' COLLATE NOCASE")
-    fun getNewsByMatchingString(matchingString: String): List<DomainNews>
+    @RawQuery
+    fun getNewsSorted(query: SimpleSQLiteQuery): List<DBNews>
 
     @Insert
-    fun insertNews(art: List<out DomainNews>)
+    fun insertNews(art: List<DBNews>)
 }

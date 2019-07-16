@@ -16,4 +16,6 @@
     <string name="no_account_yet_create_one">No account yet? Create one</string>
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="already_a_member_login">Already a member? Login</string>
+    <string name="sort">Sort</string>
+    <string name="sign_out">Sign Out</string>
 </resources>
