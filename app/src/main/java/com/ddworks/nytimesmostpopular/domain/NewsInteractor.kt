@@ -1,7 +1,5 @@
 package com.ddworks.nytimesmostpopular.domain
 
-import androidx.sqlite.db.SimpleSQLiteQuery
-
 interface NewsInteractor {
     suspend fun refreshDatabase()
 
@@ -9,5 +7,5 @@ interface NewsInteractor {
 
     fun getNewNewsById(newsId : String): DomainNews
 
-    fun getNewNewsSorted(query: SimpleSQLiteQuery): List<DomainNews>
+    fun getNewNewsSorted(matchingString: String, filter: String): List<DomainNews>
 }

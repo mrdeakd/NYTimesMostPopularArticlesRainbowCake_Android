@@ -1,6 +1,5 @@
 package com.ddworks.nytimesmostpopular.domain
 
-import androidx.sqlite.db.SimpleSQLiteQuery
 import com.ddworks.nytimesmostpopular.data.disk.DiskDataSource
 import com.ddworks.nytimesmostpopular.data.network.NetworkDataSource
 
@@ -22,6 +21,6 @@ class NewsInteractorImp(
 
     override fun getNewNewsById(newsId: String): DomainNews = nyDiskDataSource.getNewsById(newsId).mapToDomainNews()
 
-    override fun getNewNewsSorted(query: SimpleSQLiteQuery): List<DomainNews> =
-        nyDiskDataSource.getNewsSorted(query).map { it.mapToDomainNews() }
+    override fun getNewNewsSorted(matchingString: String, filter: String): List<DomainNews> =
+        nyDiskDataSource.getNewsSorted(matchingString,filter).map { it.mapToDomainNews() }
 }
