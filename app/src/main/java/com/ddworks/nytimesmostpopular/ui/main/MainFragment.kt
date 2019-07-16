@@ -17,6 +17,10 @@ import com.ddworks.nytimesmostpopular.ui.login.LoginFragment
 import com.ddworks.nytimesmostpopular.util.NewsAdapter
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_main.*
+import androidx.appcompat.app.AlertDialog
+import com.ddworks.nytimesmostpopular.util.SortOptions.SORT_BY_ABC
+import com.ddworks.nytimesmostpopular.util.SortOptions.SORT_BY_DATE
+
 
 class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAdapter.NewsItemListener {
 
@@ -62,6 +66,11 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
             navigator!!.replace(LoginFragment())
             true
         }
+        val sortOutItem =  menu.findItem(R.id.sort_out)
+        sortOutItem.setOnMenuItemClickListener {
+            showDialog()
+            true
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -93,6 +102,26 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
                 rvItems.visibility = View.VISIBLE
                 adapter.submitList(viewState.dataList)
             }
+            is NewsFilter ->{
+                rvItems.visibility = View.VISIBLE
+                adapter.submitList(viewState.dataList)
+                rvItems.smoothScrollToPosition(0)
+            }
         }
+    }
+
+    lateinit var levelDialog: AlertDialog
+
+    val items = arrayOf<CharSequence>(SORT_BY_DATE, SORT_BY_ABC)
+
+    private fun showDialog(){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Select the sort item")
+        builder.setSingleChoiceItems(items, -1) { dialog, item ->
+            viewModel.sortBy(items[item].toString())
+            dialog.dismiss()
+        }
+        levelDialog = builder.create()
+        levelDialog.show()
     }
 }

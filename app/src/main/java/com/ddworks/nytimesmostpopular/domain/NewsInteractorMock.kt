@@ -1,5 +1,7 @@
 package com.ddworks.nytimesmostpopular.domain
 
+import androidx.sqlite.db.SimpleSQLiteQuery
+
 class NewsInteractorMock : NewsInteractor {
 
     val list = listOf(
@@ -14,5 +16,5 @@ class NewsInteractorMock : NewsInteractor {
 
     override fun getNewNewsById(newsId : String): DomainNews = list.filter { it.id.toString() == newsId }[0]
 
-    override fun getNewsByMatchingString(matchingString : String): List<DomainNews> = list.filter { it.title.contains(matchingString)}
+    override fun getNewNewsSorted(query: SimpleSQLiteQuery): List<DomainNews> = list.sortedBy { query.sql }
 }

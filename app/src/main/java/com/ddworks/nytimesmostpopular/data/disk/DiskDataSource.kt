@@ -1,5 +1,6 @@
 package com.ddworks.nytimesmostpopular.data.disk
 
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.ddworks.nytimesmostpopular.domain.DomainNews
 
 class DiskDataSource(
@@ -18,7 +19,7 @@ class DiskDataSource(
         return databaseDao.getNewsById(id.toInt())
     }
 
-    fun getNewsByMatchingString(matchingString : String): List<DomainNews> {
-        return databaseDao.getNewsByMatchingString(matchingString)
+    fun getNewsSorted(query: SimpleSQLiteQuery): List<DomainNews> {
+        return databaseDao.getNewsSorted(query)
     }
 }

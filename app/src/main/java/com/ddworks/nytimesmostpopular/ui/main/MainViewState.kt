@@ -14,4 +14,6 @@ data class NewsLoaded(val dataList: List<DomainNews> = emptyList()) : MainViewSt
 
 data class NewsSearching(val dataList: List<DomainNews> = emptyList(), val searchString: String) : MainViewState()
 
+data class NewsFilter(val dataList: List<DomainNews> = emptyList(), val searchString: String, val filter : String) : MainViewState()
+
 data class NewsDetailedLoaded(val newsId : Int) : MainViewState()
