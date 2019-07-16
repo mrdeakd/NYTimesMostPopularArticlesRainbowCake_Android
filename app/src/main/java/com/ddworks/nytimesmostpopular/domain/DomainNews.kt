@@ -1,6 +1,6 @@
 package com.ddworks.nytimesmostpopular.domain
 
-import com.ddworks.nytimesmostpopular.data.disk.DBNews
+import com.ddworks.nytimesmostpopular.data.disk.model.DBNews
 
 data class DomainNews(
     var url: String,
