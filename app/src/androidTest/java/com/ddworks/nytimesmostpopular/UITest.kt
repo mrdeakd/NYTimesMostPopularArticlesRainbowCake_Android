@@ -130,7 +130,7 @@ class UITest {
     fun searchInTheListAndCheckIfItemCountIsNotTheOriginTwenty(){
         onView(withId(R.id.action_search)).perform(click())
 
-        val searchString = "10"
+        val searchString = "Hello"
         val recyclerView = activityRule.activity.findViewById<RecyclerView>(R.id.rvItems)
         val adapter = recyclerView.adapter
         val expectedCount = countFilteredNews((adapter as NewsAdapter).getListOfNews(), searchString)
