@@ -1,6 +1,7 @@
 package com.ddworks.nytimesmostpopular.domain
 
 import com.ddworks.nytimesmostpopular.data.disk.DiskDataSource
+import com.ddworks.nytimesmostpopular.data.disk.mapToDomainNews
 import com.ddworks.nytimesmostpopular.data.network.NetworkDataSource
 
 
