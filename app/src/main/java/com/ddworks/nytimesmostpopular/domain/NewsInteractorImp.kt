@@ -14,13 +14,14 @@ class NewsInteractorImp(
     override suspend fun refreshDatabase() {
         val networkNewsList: List<DomainNews> = nyNetworkDataSource.getNews()
         if (networkNewsList.isNotEmpty()) {
-            nyDiskDataSource.saveNews(networkNewsList)
+            nyDiskDataSource.saveNews(networkNewsList.map { it.mapToDBNews() })
         }
     }
 
-    override fun getNewNews(): List<DomainNews> = nyDiskDataSource.getNews()
+    override fun getNewNews(): List<DomainNews> = nyDiskDataSource.getNews().map { it.mapToDomainNews() }
 
-    override fun getNewNewsById(newsId : String): DomainNews = nyDiskDataSource.getNewsById(newsId)
+    override fun getNewNewsById(newsId: String): DomainNews = nyDiskDataSource.getNewsById(newsId).mapToDomainNews()
 
-    override fun getNewNewsSorted(query: SimpleSQLiteQuery): List<DomainNews> = nyDiskDataSource.getNewsSorted(query)
+    override fun getNewNewsSorted(query: SimpleSQLiteQuery): List<DomainNews> =
+        nyDiskDataSource.getNewsSorted(query).map { it.mapToDomainNews() }
 }
