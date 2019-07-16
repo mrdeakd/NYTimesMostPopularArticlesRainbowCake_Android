@@ -1,9 +1,10 @@
 package com.ddworks.nytimesmostpopular
 
 import com.ddworks.nytimesmostpopular.data.disk.DiskDataSource
+import com.ddworks.nytimesmostpopular.data.disk.model.DBNews
 import com.ddworks.nytimesmostpopular.data.network.NetworkDataSource
-import com.ddworks.nytimesmostpopular.domain.DomainNews
 import com.ddworks.nytimesmostpopular.domain.NewsInteractorImp
+import com.ddworks.nytimesmostpopular.domain.mapToDBNews
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -14,12 +15,12 @@ import org.junit.Test
 
 class InteractorUnitTest {
 
-    companion object{
+    companion object {
         private lateinit var diskDS: DiskDataSource
         private lateinit var networkDS: NetworkDataSource
         private lateinit var interactor: NewsInteractorImp
-        private val news1 = DomainNews("", "", "", "", 10, "")
-        private val news2 = DomainNews("", "", "", "", 11, "")
+        private val news1 = DBNews("", "", "", "", 10, "")
+        private val news2 = DBNews("", "", "", "", 11, "")
         private val listOfNews = listOf(news1, news2)
     }
 
@@ -32,7 +33,7 @@ class InteractorUnitTest {
 
     @Test
     fun `refreshDatabase fetches data from network and saves it to disk`() = runBlocking {
-        every { runBlocking { networkDS.getNews() } } returns listOfNews
+        every { runBlocking { networkDS.getNews().map { it.mapToDBNews() } } } returns listOfNews
         every { diskDS.saveNews(listOfNews) } returns Unit
 
         interactor.refreshDatabase()
@@ -65,6 +66,3 @@ class InteractorUnitTest {
         }
     }
 }
-
-
-

@@ -16,11 +16,12 @@ import com.ddworks.nytimesmostpopular.ui.details.DetailsFragment
 import com.ddworks.nytimesmostpopular.ui.login.LoginFragment
 import com.ddworks.nytimesmostpopular.util.NewsAdapter
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_main.*
 import androidx.appcompat.app.AlertDialog
 import com.ddworks.nytimesmostpopular.util.SortOptions.SORT_BY_ABC
 import com.ddworks.nytimesmostpopular.util.SortOptions.SORT_BY_DATE
-
+import kotlinx.android.synthetic.main.fragment_main.swipe_layout
+import kotlinx.android.synthetic.main.fragment_main.rvItems
+import kotlinx.android.synthetic.main.fragment_main.progress_circular
 
 class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAdapter.NewsItemListener {
 
@@ -47,9 +48,9 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
-        val searchItem =  menu.findItem(R.id.action_search)
+        val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -58,15 +59,14 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
                 viewModel.changeSearchString(newText)
                 return true
             }
-
         })
-        val signOutItem =  menu.findItem(R.id.sign_out)
+        val signOutItem = menu.findItem(R.id.sign_out)
         signOutItem.setOnMenuItemClickListener {
             FirebaseAuth.getInstance().signOut()
             navigator!!.replace(LoginFragment())
             true
         }
-        val sortOutItem =  menu.findItem(R.id.sort_out)
+        val sortOutItem = menu.findItem(R.id.sort_out)
         sortOutItem.setOnMenuItemClickListener {
             showDialog()
             true
@@ -98,14 +98,13 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
                 navigator?.add(DetailsFragment.newInstance(viewState.newsId.toString()))
                 viewModel.setStateToDetailPageLoaded()
             }
-            is NewsSearching ->{
+            is NewsSearching -> {
                 rvItems.visibility = View.VISIBLE
                 adapter.submitList(viewState.dataList)
             }
-            is NewsFilter ->{
+            is NewsFilter -> {
                 rvItems.visibility = View.VISIBLE
                 adapter.submitList(viewState.dataList)
-                rvItems.smoothScrollToPosition(0)
             }
         }
     }
@@ -114,7 +113,7 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
 
     val items = arrayOf<CharSequence>(SORT_BY_DATE, SORT_BY_ABC)
 
-    private fun showDialog(){
+    private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Select the sort item")
         builder.setSingleChoiceItems(items, -1) { dialog, item ->

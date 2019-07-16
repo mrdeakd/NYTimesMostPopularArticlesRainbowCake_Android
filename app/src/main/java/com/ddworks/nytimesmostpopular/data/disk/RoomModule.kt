@@ -5,7 +5,6 @@ import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
-
 val DatabaseModule = module {
     single { provideRoom(androidContext()) }
     single { provideDatabaseDao(get()) }
@@ -18,8 +17,6 @@ fun provideRoom(context: Context): NewsRoomDatabase {
         .build()
 }
 
-
 fun provideDatabaseDao(newsRoomDatabase: NewsRoomDatabase): DatabaseDao {
     return newsRoomDatabase.newsDataDao()
 }
-

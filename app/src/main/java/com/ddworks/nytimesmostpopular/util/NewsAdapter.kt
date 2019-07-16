@@ -12,10 +12,11 @@ import com.ddworks.nytimesmostpopular.R
 import com.ddworks.nytimesmostpopular.domain.DomainNews
 import com.ddworks.nytimesmostpopular.util.NewsAdapter.NewsViewHolder
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.row_item.view.*
 import kotlinx.android.synthetic.main.row_item.view.tvBy
 import kotlinx.android.synthetic.main.row_item.view.tvDate
 import kotlinx.android.synthetic.main.row_item.view.tvTitle
+import kotlinx.android.synthetic.main.row_item.view.ivImageOfNews
+import kotlinx.android.synthetic.main.row_item.view.ivOpenDetailActivity
 
 class NewsAdapter(
     private val listener: NewsItemListener
@@ -35,7 +36,7 @@ class NewsAdapter(
         holder.tvDate.text = newsItem.published_date
         holder.tvTitle.text = newsItem.title
         Picasso.get().load(newsItem.picture).placeholder(R.drawable.icon_calendar).into(holder.ivImageOfNews)
-        holder.ivOpenDetailActivity.setOnClickListener{
+        holder.ivOpenDetailActivity.setOnClickListener {
             listener.onItemClick(newsItem.id)
         }
     }
@@ -66,7 +67,7 @@ class NewsAdapter(
         }
     }
 
-    interface NewsItemListener{
+    interface NewsItemListener {
         fun onItemClick(newsId: Int)
     }
 }

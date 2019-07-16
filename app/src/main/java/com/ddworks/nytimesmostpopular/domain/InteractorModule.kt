@@ -6,8 +6,7 @@ import com.ddworks.nytimesmostpopular.util.Functions.isRunningTest
 import org.koin.dsl.module
 
 val InteractorModule = module {
-    factory{ provideInteractor(get(),get()) }
+    factory { provideInteractor(get(), get()) }
 }
 
 fun provideInteractor(diskDS: DiskDataSource, networkDS: NetworkDataSource) = if (isRunningTest()) NewsInteractorMock() else NewsInteractorImp(networkDS, diskDS)
-

@@ -9,16 +9,16 @@ class DetailsViewModel(
 ) : JobViewModel<DetailsViewState>(Loading) {
 
     fun loadById(domainNewsId: String) = execute {
-        //Idling
+        // Idling
         MainActivity.idlingResource.increment()
         viewState = Loading
         viewState = NewsLoaded(detailsPresenter.getDataById(domainNewsId))
-        //Idling
+        // Idling
         MainActivity.idlingResource.decrement()
     }
 
-    fun checkInternetConnection(): Boolean{
-        if(!Functions.isConnected()){
+    fun checkInternetConnection(): Boolean {
+        if (!Functions.isConnected()) {
             viewState = NoConnection
             return false
         }

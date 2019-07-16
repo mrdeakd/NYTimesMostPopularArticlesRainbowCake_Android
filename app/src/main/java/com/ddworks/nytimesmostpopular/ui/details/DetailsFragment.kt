@@ -12,7 +12,13 @@ import co.zsmb.rainbowcake.navigation.extensions.requireArguments
 import co.zsmb.rainbowcake.navigation.extensions.requireString
 import com.ddworks.nytimesmostpopular.R
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_details.*
+import kotlinx.android.synthetic.main.fragment_details.progress_circular
+import kotlinx.android.synthetic.main.fragment_details.cL_layout
+import kotlinx.android.synthetic.main.fragment_details.ivImageOfNewsDetail
+import kotlinx.android.synthetic.main.fragment_details.tvTitle
+import kotlinx.android.synthetic.main.fragment_details.tvBy
+import kotlinx.android.synthetic.main.fragment_details.tvDate
+import kotlinx.android.synthetic.main.fragment_details.bOpenCrome
 
 class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel> {
 
@@ -69,14 +75,14 @@ class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel> 
                 tvBy.text = viewState.data.byline
                 tvDate.text = viewState.data.published_date
                 bOpenCrome.setOnClickListener {
-                    if(viewModel.checkInternetConnection())
+                    if (viewModel.checkInternetConnection())
                         openInCrome(viewState.data.url)
                 }
             }
         }
     }
 
-    private fun openInCrome(url: String){
+    private fun openInCrome(url: String) {
         val intent = Intent(Intent.ACTION_VIEW)
             .setData(Uri.parse(url))
             .setPackage(getString(R.string.cromepackage))

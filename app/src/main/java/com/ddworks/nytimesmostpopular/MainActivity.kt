@@ -14,7 +14,7 @@ class MainActivity : SimpleNavActivity() {
     override val defaultPopEnterAnim: Int = R.anim.slide_in_left
     override val defaultPopExitAnim: Int = R.anim.slide_out_right
 
-    companion object{
+    companion object {
         val idlingResource = CountingIdlingResource("IDLING_RESOURCE")
     }
 

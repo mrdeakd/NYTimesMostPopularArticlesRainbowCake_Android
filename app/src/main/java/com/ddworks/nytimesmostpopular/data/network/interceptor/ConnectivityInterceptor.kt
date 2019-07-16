@@ -6,7 +6,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
 
-class ConnectivityInterceptor(context: Context): Interceptor {
+class ConnectivityInterceptor(context: Context) : Interceptor {
 
     private val applicationContext = context.applicationContext
 

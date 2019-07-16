@@ -8,7 +8,7 @@ class MainViewModel(
     private val mainPresenter: MainPresenter
 ) : JobViewModel<MainViewState>(Loading) {
     fun loadAll() = execute {
-        //Idling
+        // Idling
         MainActivity.idlingResource.increment()
         checkInternetConnection()
         val previousState = viewState
@@ -28,7 +28,7 @@ class MainViewModel(
             )
             else -> NewsLoaded(mainPresenter.getNews())
         }
-        //Idling
+        // Idling
         MainActivity.idlingResource.decrement()
     }
 
@@ -47,7 +47,7 @@ class MainViewModel(
                     mainPresenter.getNewsByMatchingString(
                         searchString,
                         (viewState as NewsFilter).filter
-                    ),searchString = searchString
+                    ), searchString = searchString
                 )
             is NewsSearching -> viewState =
                 (viewState as NewsSearching).copy(mainPresenter.getNewsByMatchingString(searchString, ""), searchString = searchString)
