@@ -1,6 +1,7 @@
 package com.ddworks.nytimesmostpopular.data.disk
 
 import androidx.sqlite.db.SimpleSQLiteQuery
+import com.ddworks.nytimesmostpopular.data.disk.model.DBNews
 import com.ddworks.nytimesmostpopular.util.SortOptions
 
 class DiskDataSource(
@@ -15,16 +16,16 @@ class DiskDataSource(
         return databaseDao.getAllNews()
     }
 
-    fun getNewsById(id : String): DBNews {
+    fun getNewsById(id: String): DBNews {
         return databaseDao.getNewsById(id.toInt())
     }
 
     fun getNewsSorted(matchingString: String, filter: String): List<DBNews> {
         var query = "SELECT * FROM newsClass"
-        if(!matchingString.equals("")){
+        if (!matchingString.equals("")) {
             query = "$query WHERE title LIKE '%' || '$matchingString' || '%' COLLATE NOCASE"
         }
-        when(filter){
+        when (filter) {
             SortOptions.SORT_BY_DATE -> query = "$query ORDER BY published_date ASC"
             SortOptions.SORT_BY_ABC -> query = "$query ORDER BY title ASC"
         }
