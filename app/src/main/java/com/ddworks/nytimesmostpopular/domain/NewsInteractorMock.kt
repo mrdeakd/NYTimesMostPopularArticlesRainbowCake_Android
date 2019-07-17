@@ -29,6 +29,7 @@ class NewsInteractorMock : NewsInteractor {
         )
     )
 
+    //We don't need to refresh Database
     override suspend fun refreshDatabase() {}
 
     override fun getNewNews(): List<DomainNews> = list

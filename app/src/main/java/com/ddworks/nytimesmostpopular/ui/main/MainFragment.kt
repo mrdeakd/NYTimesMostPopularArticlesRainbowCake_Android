@@ -90,13 +90,13 @@ class MainFragment : RainbowCakeFragment<MainViewState, MainViewModel>(), NewsAd
             is NoConnection -> {
                 Toast.makeText(this.context, getString(R.string.NoConnection), Toast.LENGTH_LONG).show()
             }
-            is NewsLoaded -> {
-                rvItems.visibility = View.VISIBLE
-                adapter.submitList(viewState.dataList)
-            }
             is NewsDetailedLoaded -> {
                 navigator?.add(DetailsFragment.newInstance(viewState.newsId.toString()))
                 viewModel.setStateToDetailPageLoaded()
+            }
+            is NewsLoaded -> {
+                rvItems.visibility = View.VISIBLE
+                adapter.submitList(viewState.dataList)
             }
             is NewsSearching -> {
                 rvItems.visibility = View.VISIBLE

@@ -20,30 +20,32 @@ class InteractorUnitTest {
         private lateinit var diskDS: DiskDataSource
         private lateinit var networkDS: NetworkDataSource
         private lateinit var interactor: NewsInteractorImp
+        private const val url = "https://www.nytimes.com/"
+        private const val picture = "https://dummyimage.com/600x400/000/fff"
         val listOfNews = listOf(
             DBNews(
-                "https://www.nytimes.com/",
+                url,
                 "By me",
                 "Title",
                 "2019.01.01",
                 1,
-                "https://dummyimage.com/600x400/000/fff"
+                picture
             ),
             DBNews(
-                "https://www.nytimes.com/",
+                url,
                 "By me",
                 "Title",
                 "2019.01.02",
                 2,
-                "https://dummyimage.com/600x400/000/fff"
+                picture
             ),
             DBNews(
-                "https://www.nytimes.com/",
+                url,
                 "By me",
                 "Title",
                 "2019.01.03",
                 3,
-                "https://dummyimage.com/600x400/000/fff"
+                picture
             )
         )
     }
