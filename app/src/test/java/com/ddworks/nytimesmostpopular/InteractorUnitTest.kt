@@ -2,6 +2,7 @@ package com.ddworks.nytimesmostpopular
 
 import com.ddworks.nytimesmostpopular.data.disk.DiskDataSource
 import com.ddworks.nytimesmostpopular.data.disk.model.DBNews
+import com.ddworks.nytimesmostpopular.data.disk.model.mapToDomainNews
 import com.ddworks.nytimesmostpopular.data.network.NetworkDataSource
 import com.ddworks.nytimesmostpopular.domain.NewsInteractorImp
 import com.ddworks.nytimesmostpopular.domain.mapToDBNews
@@ -19,9 +20,32 @@ class InteractorUnitTest {
         private lateinit var diskDS: DiskDataSource
         private lateinit var networkDS: NetworkDataSource
         private lateinit var interactor: NewsInteractorImp
-        private val news1 = DBNews("", "", "", "", 10, "")
-        private val news2 = DBNews("", "", "", "", 11, "")
-        private val listOfNews = listOf(news1, news2)
+        val listOfNews = listOf(
+            DBNews(
+                "https://www.nytimes.com/",
+                "By me",
+                "Title",
+                "2019.01.01",
+                1,
+                "https://dummyimage.com/600x400/000/fff"
+            ),
+            DBNews(
+                "https://www.nytimes.com/",
+                "By me",
+                "Title",
+                "2019.01.02",
+                2,
+                "https://dummyimage.com/600x400/000/fff"
+            ),
+            DBNews(
+                "https://www.nytimes.com/",
+                "By me",
+                "Title",
+                "2019.01.03",
+                3,
+                "https://dummyimage.com/600x400/000/fff"
+            )
+        )
     }
 
     @Before
@@ -33,7 +57,7 @@ class InteractorUnitTest {
 
     @Test
     fun `refreshDatabase fetches data from network and saves it to disk`() = runBlocking {
-        every { runBlocking { networkDS.getNews().map { it.mapToDBNews() } } } returns listOfNews
+        every { runBlocking { networkDS.getNews() } } returns listOfNews.map { it.mapToDomainNews() }
         every { diskDS.saveNews(listOfNews) } returns Unit
 
         interactor.refreshDatabase()
@@ -49,7 +73,7 @@ class InteractorUnitTest {
         every { diskDS.getNews() } returns listOfNews
         val newsOnDisk = interactor.getNewNews()
 
-        assertEquals(listOfNews, newsOnDisk)
+        assertEquals(listOfNews, newsOnDisk.map { it.mapToDBNews() })
         verify(exactly = 1) {
             diskDS.getNews()
         }
@@ -57,12 +81,12 @@ class InteractorUnitTest {
 
     @Test
     fun `get a news from disk by the given id`() {
-        every { diskDS.getNewsById("10") } returns news1
-        val n1 = interactor.getNewNewsById("10")
+        every { diskDS.getNewsById("1") } returns listOfNews[0]
+        val n1 = interactor.getNewNewsById("1")
 
-        assertEquals(news1, n1)
+        assertEquals(listOfNews[0], n1.mapToDBNews())
         verify(exactly = 1) {
-            diskDS.getNewsById("10")
+            diskDS.getNewsById("1")
         }
     }
 }
