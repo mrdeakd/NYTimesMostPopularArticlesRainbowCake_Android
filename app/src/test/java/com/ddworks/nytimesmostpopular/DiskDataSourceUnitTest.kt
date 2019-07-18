@@ -3,6 +3,7 @@ package com.ddworks.nytimesmostpopular
 import com.ddworks.nytimesmostpopular.data.disk.DatabaseDao
 import com.ddworks.nytimesmostpopular.data.disk.DiskDataSource
 import com.ddworks.nytimesmostpopular.data.disk.model.DBNews
+import com.ddworks.nytimesmostpopular.data.disk.model.mapToDomainNews
 import com.ddworks.nytimesmostpopular.data.network.NetworkDataSource
 import com.ddworks.nytimesmostpopular.domain.NewsInteractorImp
 import com.ddworks.nytimesmostpopular.domain.mapToDBNews
@@ -81,7 +82,7 @@ class DiskDataSourceUnitTest {
             DBNews("", "", "", "", 11, "")
         )
 
-        every { runBlocking { networkDS.getNews().map { it.mapToDBNews() } } } returns news
+        every { runBlocking { networkDS.getNews() } } returns news.map { it.mapToDomainNews() }
         every { dao.getAllNews() } returns news
         every { dao.deleteAllNews() } returns Unit
         every { dao.insertNews(news) } returns Unit
@@ -90,7 +91,7 @@ class DiskDataSourceUnitTest {
             interactor.refreshDatabase()
         }
 
-        val list = interactor.getNewNews()
+        val list = interactor.getNewNews().map { it.mapToDBNews() }
 
         Assert.assertEquals(list, news)
         verify {
